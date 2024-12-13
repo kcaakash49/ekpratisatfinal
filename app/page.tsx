@@ -2,12 +2,14 @@ import axios from "axios";
 import Image from "next/image";
 //make db call here for beter fetching works only on server component
 const getListing = async() => {
+  
   return {
     name: "Aakash KC",
     email: "kcaakash04@gmail.com"
   }
 }
 export default async function Home() {
+  
   const listing = await getListing();
   return (
       <div>

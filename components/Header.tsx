@@ -23,7 +23,7 @@ const Header = () => {
         },
     ]
     return (
-        <div className='bg-blue-950'>
+        <div style={{ backgroundImage: `url('/header-bg.png')` }} className='bg-cover'>
 
             <div className='flex justify-between max-w-7xl items-center mx-auto py-2'>
                 <div className='flex items-center justify-center gap-5'>
@@ -34,7 +34,7 @@ const Header = () => {
                     <div className='hidden sm:flex sm:gap-5'>
                         {
                             headerItem.map((list, index) => (
-                                <div key={index} onClick={() => router.push(list.path)} className='text-2xl cursor-pointer text-white font-serif'>
+                                <div key={index} onClick={() => router.push(list.path)} className='text-3xl cursor-pointer text-black font-serif'>
                                     {list.item}
                                 </div>
                             ))
