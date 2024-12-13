@@ -10,6 +10,7 @@ import React from 'react'
 const Header = () => {
     const router = useRouter();
     const {data: session} = useSession();
+    // console.log(session)
     
     const headerItem = [
         {
@@ -59,7 +60,7 @@ const Header = () => {
                 }
                 
             </div>
-            <div className='text-white'>{JSON.stringify(session)}</div>
+            {/* <div className='text-white'>{JSON.stringify(session)}</div> */}
         </div>
     )
 }

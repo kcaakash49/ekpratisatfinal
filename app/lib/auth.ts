@@ -1,3 +1,4 @@
+import { signinaction } from "@/action/signinaction";
 import CredentialsProvider from "next-auth/providers/credentials";
 export const NEXT_AUTH = {
   providers: [
@@ -10,21 +11,22 @@ export const NEXT_AUTH = {
       },
 
       async authorize(credentials: any) {
-        console.log(credentials);
+        const response = await signinaction(credentials.username, credentials.password)
         return {
           id: "user1",
           email: "kcaakash4910@gmail.com",
+
         };
       },
     }),
   ],
   pages: {
-    signIn: "/auth",
+    signIn: "/auth/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: ({ token, user }: any) => {
-      console.log(token);
+      // console.log(token);
       token.userId = token.sub;
       return token;
     },

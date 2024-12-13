@@ -1,6 +1,6 @@
 "use client"
+
 import { signupaction } from "@/action/signupaction";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -21,8 +21,13 @@ export function Signup(){
         e.preventDefault();
         console.log("Form submitted:", formData);
 
-        const response = signupaction(formData)
-        console.log(response)
+        const response = await signupaction(formData)
+        if (response.error) {
+          alert(response.error); // Show the error message
+        } else {
+          alert(response.message); // Success message
+          router.push("/signin")
+        }
         
       };
     

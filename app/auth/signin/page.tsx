@@ -29,7 +29,7 @@ export default function SignIn() {
   };
 
   return (
-    <div
+    <div 
       className="flex justify-center items-center bg-gradient-to-r from-blue-900 to-purple-900 h-full"
     >
       <div className="p-8 bg-white bg-opacity-70 shadow-lg rounded-lg max-w-md w-full">
@@ -39,8 +39,8 @@ export default function SignIn() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
-            type="email"
-            placeholder="Email"
+            type="text"
+            placeholder="Username"
             className="border p-3 rounded-lg"
             id="email"
             onChange={(e) => setUsername(e.target.value)}
