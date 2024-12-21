@@ -10,7 +10,7 @@ import React from 'react'
 const Header = () => {
     const router = useRouter();
     const {data: session} = useSession();
-    // console.log(session)
+    console.log("Session", session?.user?.email)
     
     const headerItem = [
         {
@@ -23,9 +23,9 @@ const Header = () => {
         },
     ]
     return (
-        <div style={{ backgroundImage: `url('/header-bg.png')` }} className='bg-cover'>
+        <div>
 
-            <div className='flex justify-between max-w-7xl items-center mx-auto py-2'>
+            <div className='flex justify-between items-center mx-auto p-10'>
                 <div className='flex items-center justify-center gap-5'>
                     <div>
                         <img src="/logo.png" alt="" className='h-12 w-12 sm:h-20 sm:w-20' />
@@ -34,7 +34,7 @@ const Header = () => {
                     <div className='hidden sm:flex sm:gap-5'>
                         {
                             headerItem.map((list, index) => (
-                                <div key={index} onClick={() => router.push(list.path)} className='text-3xl cursor-pointer text-black font-serif'>
+                                <div key={index} onClick={() => router.push(list.path)} className='text-3xl cursor-pointer text-white font-serif'>
                                     {list.item}
                                 </div>
                             ))
@@ -43,17 +43,16 @@ const Header = () => {
                 </div>
                 {
                     session ? (
-                        <div className='flex gap-2'>
+                        <div className='flex items-center'>
                             <div className='text-white text-xl sm:2xl font-serif bg-red-700 p-2 rounded-lg cursor-pointer hover:bg-red-900' onClick={() => signOut()}>SignOut</div>
-                            <div className='text-white text-xl sm:2xl font-serif bg-red-700 p-2 rounded-lg cursor-pointer hover:bg-red-900' onClick={() => router.push('/auth/signup')}>Signup</div>
+                            <div>asd</div>
 
                         </div>
 
                     ): (
                         <div className='flex gap-2'>
                             <div className='text-white text-xl sm:2xl font-serif bg-red-700 p-2 rounded-lg cursor-pointer hover:bg-red-900' onClick={() => signIn()}>Login</div>
-                            <div className='text-white text-xl sm:2xl font-serif bg-red-700 p-2 rounded-lg cursor-pointer hover:bg-red-900' onClick={() => router.push('/auth/signup')}>Signup</div>
-
+                            
                         </div>
 
                     )

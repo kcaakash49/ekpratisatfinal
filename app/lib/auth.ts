@@ -11,12 +11,17 @@ export const NEXT_AUTH = {
       },
 
       async authorize(credentials: any) {
-        const response = await signinaction(credentials.username, credentials.password)
-        return {
-          id: "user1",
-          email: "kcaakash4910@gmail.com",
-
-        };
+        const response: any = await signinaction(credentials.username, credentials.password)
+        console.log(response)
+        if (response?.user){
+          return{
+            id: response?.user.id,
+            email: response?.user.email,
+            username:response?.user.username
+          }
+        }else{
+          return null
+        }
       },
     }),
   ],
@@ -26,12 +31,15 @@ export const NEXT_AUTH = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: ({ token, user }: any) => {
-      // console.log(token);
-      token.userId = token.sub;
+      if (user) {
+        token.username = user.username;
+      }
       return token;
     },
     session: ({ session, token, user }: any) => {
       session.user.id = token.sub;
+      session.user.username = token.username;
+      console.log(session)
       return session;
     },
   },

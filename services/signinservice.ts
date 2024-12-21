@@ -9,8 +9,15 @@ export async function signinservice(username: string, password: string){
             }
         })
         
-        console.log(user)
-        return "signin success"
+        if (!user){
+            return{
+                error: "No user found"
+            }
+        }
+        return{
+            message: "Login Success",
+            user: user
+        }
     }catch(e){
         return e
     }

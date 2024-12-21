@@ -20,12 +20,10 @@ export default function SignIn() {
       username,
       password,
     });
-
-    if (result?.error) {
-      setError(result.error); // Show error message if signIn fails
-    } else {
-      router.push("/"); // Redirect to the dashboard or another page
+    if(!result?.error){
+      router.push("/")
     }
+    
   };
 
   return (

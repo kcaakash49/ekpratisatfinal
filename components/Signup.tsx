@@ -26,7 +26,7 @@ export function Signup(){
           alert(response.error); // Show the error message
         } else {
           alert(response.message); // Success message
-          router.push("/signin")
+          router.push("/auth/signin")
         }
         
       };
