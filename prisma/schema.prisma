@@ -14,8 +14,28 @@ datasource db {
 }
 
 model User{
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   username String @unique
   email String @unique
   password String
+  listings Listings[]
+}
+
+model Listings{
+  id Int @default(autoincrement()) @unique
+  title String
+  descriptions String
+  bathrooms Int
+  rooms Int
+  location String
+  price Int
+  type String
+  category String
+  landArea Int
+  numberOfFloors Int
+  area Int
+  houseArea Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+
 }

@@ -63,7 +63,7 @@ export default function SignIn() {
           <p className="text-gray-600">Don’t have an account?</p>
           <button
             type="button"
-            
+            onClick={() => router.push("/auth/signup")}
             className="text-blue-500 underline"
           >
             Sign Up

@@ -1,8 +1,10 @@
+import Header from "@/components/Header";
 
 
 const About = () => {
     return (
-      <div className="bg-gray-100 h-full">
+      <div className=" h-full">
+        <Header className="bg-transparent"/>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Header Section */}
           <div className="text-center">
@@ -35,12 +37,10 @@ const About = () => {
             </div>
   
             {/* Right Section (Image) */}
-            <div className="rounded-lg shadow-lg overflow-hidden">
-              <img
-                src="https://www.mckissock.com/wp-content/uploads/2016/11/GettyImages-1151832961.jpg"
-                alt="Real estate"
-                className="w-full h-full object-cover"
-              />
+            <div className="">
+              <video autoPlay muted loop playsInline>
+                <source src="/video/final.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
   

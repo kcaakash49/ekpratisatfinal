@@ -32,14 +32,19 @@ export const NEXT_AUTH = {
   callbacks: {
     jwt: ({ token, user }: any) => {
       if (user) {
+        token.id = user.id; // Add `id` to the token
         token.username = user.username;
+        console.log("JWT TOken", token)
       }
       return token;
     },
-    session: ({ session, token, user }: any) => {
-      session.user.id = token.sub;
-      session.user.username = token.username;
-      console.log(session)
+    // Include `id` from the token in the session
+    session: ({ session, token }: any) => {
+      if (token) {
+        session.user.id = token.id; // Map `id` from token to session.user
+        session.user.username = token.username;
+        console.log("Session info", session)
+      }
       return session;
     },
   },

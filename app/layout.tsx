@@ -21,13 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="flex flex-col h-screen relative"
+        className="flex flex-col h-screen"
       >
         <Providers>
-          <div className="absolute top-0 left-0 w-full z-20">
-            <Header />
+          
+            {/* <Header /> */}
 
-          </div>
+          
           <div className="flex-grow">
             {children}
 
