@@ -12,13 +12,17 @@ export const ListingSchema = z.object({
     location: z.string(),
     price: z.number(),
     type: z.enum(["sale", "rent"]),
-    images:z
+    images: z
     .array(
-      z.custom<File>((val) => val instanceof File, {
-        message: "Each image must be a File object",
-      })
+      z.string().refine(
+        (val) =>
+          typeof val === "string" && val.startsWith("data:image/"),
+        {
+          message: "Each image must be a base64 string starting with 'data:image/'",
+        }
+      )
     )
-    .min(1, { message: "At least one image is required" }),
+    .min(1, "At least one image"),
     landArea: z.number().optional(),
     numberOfFloors: z.number().optional(),
     houseArea: z.number().optional(),

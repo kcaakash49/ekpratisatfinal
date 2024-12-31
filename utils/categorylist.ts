@@ -6,7 +6,7 @@ export const categoryList = [
     },
     {
         type: "Apartment",
-        path: "category/house",
+        path: "category/apartment",
         img: "categoryImage/apartment.jpg"
     },
     {

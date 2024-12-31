@@ -25,7 +25,7 @@ export default function RootLayout({
       >
         <Providers>
           
-            {/* <Header /> */}
+            <Header />
 
           
           <div className="flex-grow">

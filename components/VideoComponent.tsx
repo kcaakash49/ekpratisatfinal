@@ -2,7 +2,7 @@ import Header from "./Header"
 
 export default function() {
     return (
-      <div className="relative h-1/2">
+      <div className="relative h-[800px]">
         {/* Background Video */}
         <video
           autoPlay
@@ -11,13 +11,13 @@ export default function() {
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover"
         >
-          <source src="/video/partical.mp4" type="video/mp4" />
+          <source src="/video/time.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
   
         {/* Content Overlay */}
         <div className="relative z-10">
-          <Header className="bg-transparent"/>
+          {/* <Header className="bg-transparent"/> */}
           <div className="flex flex-col gap-6 p-28 px-3 max-w-7xl mx-auto font-custom">
             <h1 className="text-white font-bold text-3xl lg:text-6xl">
               Find your next <span className="text-slate-400">perfect</span>

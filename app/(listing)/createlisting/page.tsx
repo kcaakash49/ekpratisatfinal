@@ -38,11 +38,45 @@ const CreateListingForm = () => {
         });
     };
 
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files) {
+    //         setFormData({
+    //             ...formData,
+    //             images: Array.from(e.target.files),
+    //         });
+    //     }
+    // };
+    const arrayBufferToBase64 = (buffer: ArrayBuffer): string => {
+        const byteArray = new Uint8Array(buffer);
+        let binary = '';
+        byteArray.forEach((byte) => {
+            binary += String.fromCharCode(byte);
+        });
+        return window.btoa(binary); // Converts binary string to Base64 string
+    };
+    
+    const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
+            const files = Array.from(e.target.files);
+        
+            // Convert files to ArrayBuffer and then to Base64
+            const base64Images = await Promise.all(
+                files.map((file) =>
+                    new Promise<string>((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            const base64 = arrayBufferToBase64(reader.result as ArrayBuffer);
+                            resolve(base64); // Convert ArrayBuffer to Base64 string
+                        };
+                        reader.onerror = (error) => reject(error);
+                        reader.readAsArrayBuffer(file); // Convert file to ArrayBuffer
+                    })
+                )
+            );
+            console.log(base64Images);
             setFormData({
                 ...formData,
-                images: Array.from(e.target.files),
+                images: base64Images, // Set Base64 encoded images
             });
         }
     };
@@ -58,7 +92,7 @@ const CreateListingForm = () => {
 
     return (
         <>
-            <Header className='bg-black' />
+            {/* <Header className='bg-black' /> */}
             <div className='p-6'>
 
                 <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
