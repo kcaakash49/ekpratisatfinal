@@ -13,7 +13,7 @@ export default async function () {
     return (
         <div className="max-w-7xl mx-auto pb-10">
             <div className="text-4xl font-bold font-custom pb-10">Recently Added</div>
-            <div className="flex ">
+            <div className="flex flex-wrap">
                 {
                     data?.map((item: any, index: any) => (
                         <div key={index} className="mx-4">

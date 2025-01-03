@@ -7,6 +7,9 @@ export async function categoryService(category: string) {
       where: {
         category: category,
       },
+      include: {
+        images: true
+      }
     });
     if (!data || data.length === 0) {
         console.log("No listings found for the category:", category);
