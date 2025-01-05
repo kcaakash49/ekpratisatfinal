@@ -4,7 +4,7 @@ import ListingCard from "@/components/ListingCard";
 
 export default async function () {
     const  data: any  = await getListingAction();
-    console.log("data", data)
+    // console.log("data", data)
     if (!data || data.length === 0) {
         return <div className="font-bold text-7xl flex items-center justify-center h-full">
             No Records Found

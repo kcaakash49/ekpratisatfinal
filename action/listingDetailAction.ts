@@ -1,6 +1,6 @@
 import { listingDetailService } from "@/services/listingDetailService";
 
 
-export async function listingDetailAction({params}: any){
-    return await listingDetailService()
+export async function listingDetailAction(id : string){
+    return await listingDetailService(id)
 }

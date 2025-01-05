@@ -17,7 +17,7 @@
 // }
 
 export default function ListingCard({ title, description, location, price, images }: any) {
-    console.log("Received images:", images);
+    // console.log("Received images:", images);
   
     return (
       <div className="border p-2 w-[300px]">
