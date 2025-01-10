@@ -34,7 +34,7 @@ export const NEXT_AUTH = {
       if (user) {
         token.id = user.id; // Add `id` to the token
         token.username = user.username;
-        console.log("JWT TOken", token)
+        // console.log("JWT TOken", token)
       }
       return token;
     },
@@ -43,7 +43,7 @@ export const NEXT_AUTH = {
       if (token) {
         session.user.id = token.id; // Map `id` from token to session.user
         session.user.username = token.username;
-        console.log("Session info", session)
+        // console.log("Session info", session)
       }
       return session;
     },

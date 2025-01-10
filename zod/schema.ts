@@ -14,11 +14,11 @@ export const ListingSchema = z.object({
     type: z.enum(["sale", "rent"]),
     images: z
     .array(
-      z.string().refine(
-        (val) =>
-          typeof val === "string" && val.startsWith("data:image/"),
+      z.instanceof(File).refine(
+        (file) =>
+          file.type.startsWith("image/") && file.size > 0,
         {
-          message: "Each image must be a base64 string starting with 'data:image/'",
+          message: "Each file must be an image and not empty",
         }
       )
     )

@@ -26,7 +26,7 @@ export default function ListingCard({ title, description, location, price, image
             images.map((image: { id: number; url: string }, index: number) => (
               <img
                 key={index}
-                src={`data:image/jpeg;base64,${image.url}`}
+                src={`${process.env.BASE_URL}/${image.url}`}
                 alt={`Listing Image ${image.id}`}
                 className="w-full h-full object-cover"
               />

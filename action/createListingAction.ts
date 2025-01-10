@@ -7,6 +7,7 @@ import { CreateListingSchema } from "@/zod/schema";
 import { getServerSession } from "next-auth";
 
 export async function createListingAction(formData: CreateListingSchema){
+    
     const session = await getServerSession(NEXT_AUTH)
     if (!session || !session.user?.id){
         throw new Error("Unauthorized")
