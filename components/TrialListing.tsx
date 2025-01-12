@@ -2,13 +2,11 @@ import ListingCard from "@/components/ListingCard";
 import { getListingService } from "@/services/getListingService";
 import axios from "axios";
 
+
+// export const dynamic = "force-dynamic";
 export default async function ListingsPage() {
   try {
-    // const response = await axios.get("http://localhost:3000/api/getlisting");
-    // console.log(response)
-    // const data = response.data.data; // Extract the data from the API response
-
-    const data: any = await getListingService();
+        const data: any = await getListingService();
 
     if (!data || data.length === 0) {
       return (
@@ -46,3 +44,5 @@ export default async function ListingsPage() {
     );
   }
 }
+
+// export const fetchCache = "force-no-store";

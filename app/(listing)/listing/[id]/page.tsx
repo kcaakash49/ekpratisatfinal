@@ -1,10 +1,12 @@
 import { listingDetailAction } from "@/action/listingDetailAction";
 import SwiperComponent from "@/components/SwiperComponent";
 
+export const revalidate = 60 * 60 * 24;
+
 export default async function Page({ params }: any) {
     const param = await params;
-    const response = await listingDetailAction(param.id)
-    const property = response.listing
+    const response = await listingDetailAction(param.id);
+    const property = response.listing;
     
     if (!property){
         return <div className="h-full flex items-center justify-center">

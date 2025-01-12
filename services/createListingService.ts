@@ -22,10 +22,11 @@
 // }
 
 import jwt from "jsonwebtoken";
-import { CreateListingSchema } from "@/zod/schema";
+
 import client from "@/db";
 import fs from "fs";
 import path from "path";
+import { revalidatePath } from "next/cache";
 
 export async function createListingService(
   formData: any,
@@ -70,7 +71,7 @@ export async function createListingService(
       
       return listing;
     });
-
+    revalidatePath("/");
     return {
       message: "Listing added successfully",
       listing: result,

@@ -4,9 +4,9 @@ import CategoryListingComponent from "@/components/CategoryListingComponent"
 
 export default async function({params}: any){
     const category = await params
-    console.log(category.items[0])
+    // console.log(category.items[0])
     const listing: any = await categoryAction(category.items[0])
-    console.log("Listing in category", listing)
+    // console.log("Listing in category", listing)
     return <div className="max-w-7xl mx-auto">
         {
             listing?.map((item: any, index: any) => (
