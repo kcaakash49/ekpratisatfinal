@@ -1,7 +1,20 @@
+import { getListingAction } from "@/action/getListingAction";
 import { listingDetailAction } from "@/action/listingDetailAction";
 import SwiperComponent from "@/components/SwiperComponent";
 
-export const revalidate = 60 * 60 * 24;
+
+export async function generateStaticParams() {
+  // Fetch the first 20 listings
+  const listings:any = await getListingAction(); // Fetch the first 20 listings (could be a DB query or API call)
+  
+  return listings.map((listing: any) => ({
+    id: listing.id.toString(),  // This matches the dynamic route `[id]`
+  }));
+}
+
+export const metadata = {
+  revalidate: 60 * 60 * 24, // This will regenerate the static page every 24 hours
+};
 
 export default async function Page({ params }: any) {
     const param = await params;
