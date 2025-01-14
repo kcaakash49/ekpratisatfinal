@@ -9,6 +9,7 @@ import ImageUpload from '@/components/createListingComponent/ImageUpload';
 import LandInfo from '@/components/createListingComponent/LandInfo';
 import RoomInfo from '@/components/createListingComponent/RoomInfo';
 import Header from '@/components/Header';
+import Loading from '@/components/Loading';
 import { CreateListingSchema } from '@/zod/schema';
 import { useRouter } from 'next/navigation';
 import { useState, ChangeEvent, FormEvent } from 'react';
@@ -95,9 +96,7 @@ const CreateListingForm = () => {
                             }`}
                     >
                         {loading ? (
-                            <div className="flex justify-center items-center space-x-2">
-                                <div className="w-5 h-5 border-4 border-t-4 border-indigo-700 border-solid rounded-full animate-spin"></div>
-                            </div>
+                            <Loading/>
                         ) : (
                             "Create Listing"
                         )}

@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -15,11 +17,13 @@ export default function SignIn() {
     setError(""); // Clear previous errors
 
     // Call the NextAuth signIn function with "credentials"
+    setLoading(true)
     const result = await signIn("credentials", {
       redirect: false, // Prevent automatic redirection
       username,
       password,
     });
+    setLoading(false)
     console.log("result in signin", result)
     if (result?.status == 401){
       setError("wrong username or password")
@@ -54,10 +58,16 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
-            
+            disabled = {loading}
             className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
-            Sign In
+            {
+              loading ? (
+                <Loading/>
+              ) : (
+                "Sign In"
+              )
+            }
           </button>
           
         </form>
