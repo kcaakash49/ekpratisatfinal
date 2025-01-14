@@ -14,7 +14,7 @@ import { NEXT_AUTH } from '@/app/lib/auth';
 const Header = ({ className }: any) => {
     
     const {data: session} = useSession();
-    console.log("Session in header", session)
+    // console.log("Session in header", session)
 
     const headerItem = [
         {

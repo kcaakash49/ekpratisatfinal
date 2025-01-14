@@ -10,6 +10,7 @@ import LandInfo from '@/components/createListingComponent/LandInfo';
 import RoomInfo from '@/components/createListingComponent/RoomInfo';
 import Header from '@/components/Header';
 import { CreateListingSchema } from '@/zod/schema';
+import { useRouter } from 'next/navigation';
 import { useState, ChangeEvent, FormEvent } from 'react';
 
 const CreateListingForm = () => {
@@ -29,7 +30,11 @@ const CreateListingForm = () => {
         houseArea: 1,
         area: 1
     });
-
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false);
+    const [formStatus, setFormStatus] = useState<'idle' | 'message' | 'error'>('idle')
+    const router = useRouter();
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({
@@ -46,48 +51,28 @@ const CreateListingForm = () => {
             });
         }
     };
-    // const arrayBufferToBase64 = (buffer: ArrayBuffer): string => {
-    //     const byteArray = new Uint8Array(buffer);
-    //     let binary = '';
-    //     byteArray.forEach((byte) => {
-    //         binary += String.fromCharCode(byte);
-    //     });
-    //     return window.btoa(binary); // Converts binary string to Base64 string
-    // };
-    
-    // const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    //     if (e.target.files) {
-    //         const files = Array.from(e.target.files);
-        
-    //         // Convert files to ArrayBuffer and then to Base64
-    //         const base64Images = await Promise.all(
-    //             files.map((file) =>
-    //                 new Promise<string>((resolve, reject) => {
-    //                     const reader = new FileReader();
-    //                     reader.onload = () => {
-    //                         const base64 = arrayBufferToBase64(reader.result as ArrayBuffer);
-    //                         resolve(base64); // Convert ArrayBuffer to Base64 string
-    //                     };
-    //                     reader.onerror = (error) => reject(error);
-    //                     reader.readAsArrayBuffer(file); // Convert file to ArrayBuffer
-    //                 })
-    //             )
-    //         );
-    //         console.log(base64Images);
-    //         setFormData({
-    //             ...formData,
-    //             images: base64Images, // Set Base64 encoded images
-    //         });
-    //     }
-    // };
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        const response = await createListingAction(formData)
-        console.log(response)
         
-        // Add your submission logic here, e.g., server actions or API calls
+        setFormStatus('idle')
+        setLoading(true)
+        // await new Promise(resolve => setTimeout(resolve, 5000));
+
+
+        const response: any = await createListingAction(formData)
+        setLoading(false)
+        if (response.error) {
+            setError(response.error)
+            setFormStatus('error')
+            return
+        }
+        console.log(message)
+        setMessage(response.message)
+        setFormStatus('message')
+        router.push("/")
+
+
     };
 
     return (
@@ -98,17 +83,39 @@ const CreateListingForm = () => {
                 <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
                     <GeneralInformation formData={formData} handleChange={handleChange} />
                     <Category formData={formData} handleChange={handleChange} />
-                    {formData.category === 'house' && <HouseInfo formData={formData} handleChange={handleChange}/>}
-                    {(formData.category === 'apartment' || formData.category ==='flat' || formData.category === 'business') && <ApartmentInfo formData = {formData} handleChange = {handleChange} />}
-                    {formData.category === 'land' && <LandInfo formData = {formData} handleChange = {handleChange} />}
-                    {formData.category === 'room' && <RoomInfo formData = {formData} handleChange = {handleChange} />}
-                    <ImageUpload formData = {formData} handleFileChange = {handleFileChange} />
+                    {formData.category === 'house' && <HouseInfo formData={formData} handleChange={handleChange} />}
+                    {(formData.category === 'apartment' || formData.category === 'flat' || formData.category === 'business') && <ApartmentInfo formData={formData} handleChange={handleChange} />}
+                    {formData.category === 'land' && <LandInfo formData={formData} handleChange={handleChange} />}
+                    {formData.category === 'room' && <RoomInfo formData={formData} handleChange={handleChange} />}
+                    <ImageUpload formData={formData} handleFileChange={handleFileChange} />
                     <button
                         type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        disabled={loading}
+                        className={`w-full py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${loading ? "bg-indigo-300" : "bg-indigo-600 hover:bg-indigo-700 text-white"
+                            }`}
                     >
-                        Create Listing
+                        {loading ? (
+                            <div className="flex justify-center items-center space-x-2">
+                                <div className="w-5 h-5 border-4 border-t-4 border-indigo-700 border-solid rounded-full animate-spin"></div>
+                            </div>
+                        ) : (
+                            "Create Listing"
+                        )}
                     </button>
+
+                    <div>
+                        {formStatus === 'message' && (
+                            <div className="bg-green-500 text-white p-4 rounded-md text-center">
+                                {message}
+                            </div>
+                        )}
+                        {formStatus === 'error' && (
+                            <div className="bg-red-500 text-white p-4 rounded-md text-center">
+                                {error}
+                            </div>
+                        )}
+                    </div>
+
                 </form>
             </div>
         </>

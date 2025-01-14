@@ -12,13 +12,9 @@ export const NEXT_AUTH = {
 
       async authorize(credentials: any) {
         const response: any = await signinaction(credentials.username, credentials.password)
-        console.log(response)
+        console.log("Response", response)
         if (response?.user){
-          return{
-            id: response?.user.id,
-            email: response?.user.email,
-            username:response?.user.username
-          }
+          return response?.user
         }else{
           return null
         }

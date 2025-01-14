@@ -34,51 +34,64 @@ export async function createListingService(
 ) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-      userId: number;
+        userId: number;
     };
     const userId = decoded.userId;
+    console.log("userId", userId);
+
     const files = formData.images || [];
 
-    const imageUrls: string[] = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const filename = Date.now() + "-" + file.name;
-        const filePath = path.join("/var/www/images", filename);
-
-        // Save the file to /var/www/images
-        const buffer = Buffer.from(await file.arrayBuffer());
-        fs.writeFileSync(filePath, buffer);
-
-        // Add image URL to the list
-        imageUrls.push(`/images/${filename}`);
-   
-      }
-    console.log("imageUrls", imageUrls)
-    // Start a transaction to ensure both actions are performed atomically
+    // Start a transaction to ensure atomicity
     const result = await client.$transaction(async (prisma) => {
-      // Create the listing first
-      const listing = await prisma.listings.create({
-        data: {
-          ...formData,
-          userId,
-          images: {
-            create: imageUrls.map((image) => ({
-              url: image, // Base64 string (assuming it's stored in the 'url' field)
-            })) || [], // Ensure an empty array if no images are provided
-          },
-        },
-      });
-      
-      return listing;
+        // Generate image URLs and buffer the file data
+        const imageUrls: string[] = [];
+        const fileBuffers: { buffer: Buffer; path: string }[] = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const filename = Date.now() + "-" + file.name;
+            const filePath = path.join("/var/www/images", filename);
+
+            // Buffer the file content but delay writing to disk
+            const buffer = Buffer.from(await file.arrayBuffer());
+            fileBuffers.push({ buffer, path: filePath });
+
+            // Add to image URLs
+            imageUrls.push(`/images/${filename}`);
+        }
+        console.log(imageUrls)
+        // Create the listing
+        const listing = await prisma.listings.create({
+            data: {
+                ...formData,
+                userId,
+                images: {
+                    create: imageUrls.map((image) => ({
+                        url: image,
+                    })),
+                },
+            },
+        });
+
+        // Write files to disk after the listing is created
+        fileBuffers.forEach(({ buffer, path }) => {
+            fs.writeFileSync(path, buffer);
+        });
+
+        return listing;
     });
+
     revalidatePath("/");
     return {
-      message: "Listing added successfully",
-      listing: result,
+        message: "Listing added successfully",
+        listing: result,
     };
-  } catch (error: any) {
+} catch (error: any) {
+    // console.error("Error adding listing:", error);
     return {
-      error: error.message || "An error occurred while adding the listing",
+        error: "An error occurred while adding the listing",
     };
-  }
+}
+
+
 }

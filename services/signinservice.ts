@@ -11,7 +11,7 @@ export async function signinservice(username: string, password: string){
         
         if (!user){
             return{
-                error: "No user found"
+                error: "Wrong username or password"
             }
         }
         return{
