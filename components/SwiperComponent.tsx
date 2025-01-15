@@ -21,7 +21,7 @@ export default function({images}: any){
       {images.map((image: any, index: any) => (
         <SwiperSlide key={index}>
           <img
-            src={`${process.env.BASE_URL}${image.url}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}${image.url}`}
             alt={`Property Image ${index + 1}`}
             className="w-full h-auto object-cover"
           />
