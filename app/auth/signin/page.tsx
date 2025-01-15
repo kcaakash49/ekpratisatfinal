@@ -26,7 +26,7 @@ export default function SignIn() {
     setLoading(false)
     console.log("result in signin", result)
     if (result?.status == 401){
-      setError("wrong username or password")
+      setError("Wrong username or password")
       return
     } 
     router.push("/")
