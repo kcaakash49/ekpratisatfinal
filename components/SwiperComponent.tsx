@@ -6,6 +6,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 
+import dynamic from 'next/dynamic';
+
+
+
 export default function({images}: any){
     return (
         <Swiper
@@ -17,7 +21,7 @@ export default function({images}: any){
       {images.map((image: any, index: any) => (
         <SwiperSlide key={index}>
           <img
-            src={`data:image/jpeg;base64,${image.url}`}
+            src={`${process.env.BASE_URL}${image.url}`}
             alt={`Property Image ${index + 1}`}
             className="w-full h-auto object-cover"
           />

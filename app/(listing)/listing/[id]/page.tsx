@@ -3,6 +3,7 @@ import { listingDetailAction } from "@/action/listingDetailAction";
 import SwiperComponent from "@/components/SwiperComponent";
 
 
+
 export async function generateStaticParams() {
   // Fetch the first 20 listings
   const listings:any = await getListingAction(); // Fetch the first 20 listings (could be a DB query or API call)

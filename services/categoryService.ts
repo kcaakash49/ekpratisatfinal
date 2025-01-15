@@ -15,7 +15,7 @@ export async function categoryService(category: string) {
         console.log("No listings found for the category:", category);
         return [];
       }
-    console.log("data is service",data)
+    // console.log("data is service",data)
     return data;
   } catch (e) {}
   return "Some Error Happeed";
