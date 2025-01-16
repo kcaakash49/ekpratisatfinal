@@ -23,13 +23,13 @@ const CreateListingForm = () => {
         type: 'rent',
         category: 'house',
         location: '',
-        bedrooms: 1,
-        bathrooms: 1,
+        bedrooms: null,
+        bathrooms: null,
         images: [],
-        landArea: 1,
-        numberOfFloors: 1,
-        houseArea: 1,
-        area: 1
+        landArea: null,
+        numberOfFloors: null,
+        houseArea: null,
+        area: null
     });
     const [message, setMessage] = useState("");
     const [error, setError] = useState("")

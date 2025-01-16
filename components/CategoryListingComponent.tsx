@@ -1,5 +1,6 @@
 import SwiperComponent from "./SwiperComponent";
 
+
 export default function ({ title, description, price, type, location, bathrooms, rooms,images }: any) {
   return (
     <div className="border border-gray-200 rounded-lg shadow-lg overflow-hidden bg-white transform hover:scale-105 transition-transform duration-300">
@@ -8,7 +9,7 @@ export default function ({ title, description, price, type, location, bathrooms,
         <div className="w-1/3">
           <div className="w-full h-full bg-gray-300 flex items-center justify-center">
             {/* Placeholder icon when no image is available */}
-            <img src={`${process.env.BASE_URL}${images[0].url}`} alt="" />
+            <SwiperComponent images = {images} />
           </div>
         </div>
 

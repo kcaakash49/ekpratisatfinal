@@ -25,8 +25,8 @@ model Listings{
   id Int @default(autoincrement()) @unique
   title String
   description String
-  bathrooms Int
-  bedrooms Int
+  bathrooms Int?
+  bedrooms Int?
   location String
   price Int
   type String

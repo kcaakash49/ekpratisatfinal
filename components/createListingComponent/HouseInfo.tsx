@@ -1,3 +1,4 @@
+import RoomInfo from "./RoomInfo";
 
 
 export default function ({ formData, handleChange}: any) {
@@ -9,10 +10,11 @@ export default function ({ formData, handleChange}: any) {
                     type="number"
                     id="landArea"
                     name="landArea"
-                    value={formData.landArea}
+                    value={formData.landArea ?? ""}
                     onChange={handleChange}
                     min='1'
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                    required
                 />
             </div>
 
@@ -22,10 +24,11 @@ export default function ({ formData, handleChange}: any) {
                     type="number"
                     id="numberOfFloors"
                     name="numberOfFloors"
-                    value={formData.numberOfFloors}
+                    value={formData.numberOfFloors ?? ""}
                     onChange={handleChange}
                     min="1"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                    required
                 />
             </div>
 
@@ -35,39 +38,14 @@ export default function ({ formData, handleChange}: any) {
                     type="number"
                     id="houseOArea"
                     name="houseArea"
-                    value={formData.houseArea}
+                    value={formData.houseArea ?? ""}
                     onChange={handleChange}
                     min = "1"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-            </div>
-            <div>
-                <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-700">Bedrooms</label>
-                <input
-                    type="number"
-                    id="bedrooms"
-                    name="bedrooms"
-                    value={formData.bedrooms}
-                    onChange={handleChange}
-                    min="1"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
                     required
                 />
             </div>
-
-            <div>
-                <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700">Bathrooms</label>
-                <input
-                    type="number"
-                    id="bathrooms"
-                    name="bathrooms"
-                    value={formData.bathrooms}
-                    onChange={handleChange}
-                    min="1"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                    required
-                />
-            </div>
+            <RoomInfo formData = {formData} handleChange = {handleChange}/>
 
             
         </>

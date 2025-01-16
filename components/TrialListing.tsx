@@ -21,7 +21,7 @@ export default async function ListingsPage() {
         <div className="text-4xl font-bold font-custom pb-10">Trial Added</div>
         <div className="flex flex-wrap">
           {data.map((item: any, index: any) => (
-            <div key={index} className="mx-4">
+            <div key={index} className="mx-auto my-2 sm:mx-2 ">
               <a href={`/listing/${item.id}`}>
                 <ListingCard
                   title={item.title}

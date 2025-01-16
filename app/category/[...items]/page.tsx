@@ -6,7 +6,11 @@ export default async function({params}: any){
     const category = await params
     // console.log(category.items[0])
     const listing: any = await categoryAction(category.items[0])
-    // console.log("Listing in category", listing)
+    if (listing.length == 0){
+        return <div className="h-full flex items-center justify-center">
+            No records found
+        </div>
+    }
     return <div className="max-w-7xl mx-auto">
         {
             listing?.map((item: any, index: any) => (

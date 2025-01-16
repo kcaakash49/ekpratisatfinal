@@ -16,7 +16,7 @@ export const categoryList = [
     },
     {
         type: "Office",
-        path: "categoryImage/office",
+        path: "category/office",
         img: "categoryImage/office.png"
     }
 ]

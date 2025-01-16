@@ -6,8 +6,8 @@ import {  z } from "zod";
 export const ListingSchema = z.object({
     title: z.string(),
     description: z.string(),
-    bathrooms: z.number(),
-    bedrooms: z.number(),
+    bathrooms: z.number().nullable().optional(),
+    bedrooms: z.number().nullable().optional(),
     category: z.enum(['house','flat','apartment','business','hostel_boys','hostel_girls','land','room']),
     location: z.string(),
     price: z.number(),
@@ -23,10 +23,10 @@ export const ListingSchema = z.object({
       )
     )
     .min(1, "At least one image"),
-    landArea: z.number().optional(),
-    numberOfFloors: z.number().optional(),
-    houseArea: z.number().optional(),
-    area: z.number().optional()
+    landArea: z.number().nullable().optional(),
+    numberOfFloors: z.number().nullable().optional(),
+    houseArea: z.number().nullable().optional(),
+    area: z.number().nullable().optional()
 
 })
 
