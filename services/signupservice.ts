@@ -1,43 +1,63 @@
 import client from "@/db";
+import { signUpSchema, SignUpSchema } from "@/zod/schema";
 import { Role } from "@prisma/client";
 
-export async function signupservice(fullname: string, email: string, password: string, mobile: string, role: Role) {
+export async function signupservice(formData: SignUpSchema) {
     try {
-        // Check if the username or email already exists
+        const result = signUpSchema.safeParse(formData);
+        console.log(result.error?.format());
+        if (!result.success) {
+            const formattedErrors: any = result.error?.format();
+            console.log(formattedErrors)
+            const simplifiedErrors = Object.keys(formattedErrors).reduce(
+                (acc: any, key) => {
+                    // Skip the _errors property as it is not a form field
+                    if (key !== "_errors" && formattedErrors[key]._errors.length > 0) {
+                        acc[key] = formattedErrors[key]._errors[0]; // Take the first error message
+                    }
+                    return acc;
+                },
+                {}
+            );
+            return {
+                error: simplifiedErrors,
+            };
+        }
         const existingUser = await client.user.findFirst({
             where: {
-                OR: [
-                    { mobile: mobile },
-                    { email: email },
-                ],
+                OR: [{ mobile: formData.mobile }, { email: formData.email }],
             },
         });
 
         if (existingUser) {
-            if (existingUser.mobile === mobile) {
-                return { error: "Phone Number is already taken. Please choose another one." };
+            if (existingUser.mobile === formData.mobile) {
+                return {
+                    error: {
+                        error: "Phone Number is already taken. Please choose another one.",
+                    },
+                };
             }
-            if (existingUser.email === email) {
-                return { error: "Email is already registered. Please use another email." };
+            if (existingUser.email === formData.email) {
+                return {
+                    error: {
+                        error: "Email is already registered. Please use another email.",
+                    },
+                };
             }
         }
 
         // Create a new user if no conflicts exist
         await client.user.create({
-            data: {
-                fullname: fullname,
-                email: email,
-                password: password,
-                mobile: mobile,
-                role: role
-            },
+            data: formData,
         });
 
         return { message: "Signup successful" };
     } catch (error) {
-        console.error("Error during signup:", error);
+        // console.error("Error during signup:", error);
 
         // Return a generic error if something unexpected happens
-        return { error: "An unexpected error occurred. Please try again later." };
+        return {
+            error: { error: "An unexpected error occurred. Please try again later." },
+        };
     }
 }
