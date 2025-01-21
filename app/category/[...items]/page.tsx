@@ -1,5 +1,6 @@
 import { categoryAction } from "@/action/categoryAction"
 import CategoryListingComponent from "@/components/CategoryListingComponent"
+import ListingListComponent from "@/components/ListingListComponent"
 
 
 export default async function({params}: any){
@@ -11,15 +12,9 @@ export default async function({params}: any){
             No records found
         </div>
     }
-    return <div className="max-w-7xl mx-auto">
-        {
-            listing?.map((item: any, index: any) => (
-                <div key = {index} className="m-2">
-                    <a href={`/listing/${item.id}`}>
-                        <CategoryListingComponent title = {item.title} description = {item.description} type = {item.type} images = {item.images} price = {item.price} location = {item.location} rooms = {item.bedrooms} bathrooms = {item.numberofbathrooms}/>
-                    </a>
-                </div>
-            ))
-        }
-    </div>
+    return (
+        <ListingListComponent listing={listing}/>
+
+    )
+    
 }

@@ -1,20 +1,21 @@
 import client from "@/db";
+import { Role } from "@prisma/client";
 
-export async function signupservice(fullname: string, email: string, password: string) {
+export async function signupservice(fullname: string, email: string, password: string, mobile: string, role: Role) {
     try {
         // Check if the username or email already exists
         const existingUser = await client.user.findFirst({
             where: {
                 OR: [
-                    { username: fullname },
+                    { mobile: mobile },
                     { email: email },
                 ],
             },
         });
 
         if (existingUser) {
-            if (existingUser.username === fullname) {
-                return { error: "Username is already taken. Please choose another one." };
+            if (existingUser.mobile === mobile) {
+                return { error: "Phone Number is already taken. Please choose another one." };
             }
             if (existingUser.email === email) {
                 return { error: "Email is already registered. Please use another email." };
@@ -24,9 +25,11 @@ export async function signupservice(fullname: string, email: string, password: s
         // Create a new user if no conflicts exist
         await client.user.create({
             data: {
-                username: fullname,
+                fullname: fullname,
                 email: email,
                 password: password,
+                mobile: mobile,
+                role: role
             },
         });
 

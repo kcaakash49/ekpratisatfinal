@@ -1,10 +1,11 @@
 import client from "@/db";
+import { revalidatePath } from "next/cache";
 
-export async function signinservice(username: string, password: string){
+export async function signinservice(mobile: string, password: string){
     try {
         const user = await client.user.findUnique({
             where: {
-                username: username,
+                mobile: mobile,
                 password: password
             }
         })
@@ -14,6 +15,7 @@ export async function signinservice(username: string, password: string){
                 error: "Wrong username or password"
             }
         }
+        
         return{
             message: "Login Success",
             user: user

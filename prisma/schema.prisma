@@ -15,10 +15,13 @@ datasource db {
 
 model User{
   id Int @id @default(autoincrement()) @unique
-  username String @unique
+  fullname String
+  mobile String @unique
   email String @unique
+  role Role @default(USER)
   password String
   listings Listings[]
+  created  DateTime  @default(now())
 }
 
 model Listings{
@@ -38,7 +41,7 @@ model Listings{
   user User @relation(fields: [userId], references: [id])
   userId Int
   images Image[]
-
+  created  DateTime  @default(now())
 }
 
 model Image {
@@ -46,4 +49,9 @@ model Image {
   url String
   listing Listings @relation(fields: [listingId], references: [id])
   listingId Int
+}
+
+enum Role{
+  USER
+  PARTNER
 }

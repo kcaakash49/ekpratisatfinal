@@ -62,6 +62,7 @@ const CreateListingForm = () => {
 
 
         const response: any = await createListingAction(formData)
+        console.log("Response", response)
         setLoading(false)
         if (response.error) {
             setError(response.error)

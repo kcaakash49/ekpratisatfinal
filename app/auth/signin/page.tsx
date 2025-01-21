@@ -6,13 +6,14 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
 
 export default function SignIn() {
-  const [username, setUsername] = useState("");
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("");
+  const [isVisible, setVisible] = useState(false)
   const router = useRouter();
 
-  const handleSubmit = async (e : any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(""); // Clear previous errors
 
@@ -20,21 +21,21 @@ export default function SignIn() {
     setLoading(true)
     const result = await signIn("credentials", {
       redirect: false, // Prevent automatic redirection
-      username,
+      mobile,
       password,
     });
     setLoading(false)
     console.log("result in signin", result)
-    if (result?.status == 401){
+    if (result?.status == 401) {
       setError("Wrong username or password")
       return
-    } 
+    }
     router.push("/")
-    
+
   };
 
   return (
-    <div 
+    <div
       className="flex justify-center items-center bg-gradient-to-r from-blue-900 to-purple-900 h-full"
     >
       <div className="p-8 bg-white bg-opacity-70 shadow-lg rounded-lg max-w-md w-full">
@@ -45,31 +46,75 @@ export default function SignIn() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
-            placeholder="Username"
+            placeholder="98********"
             className="border p-3 rounded-lg"
-            id="email"
-            onChange={(e) => setUsername(e.target.value)}
+            id="mobile"
+            onChange={(e) => setMobile(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            className="border p-3 rounded-lg"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <input
+              type={isVisible ? "text" : "password"}
+              placeholder="Password"
+              className="border p-3 rounded-lg w-full pr-10"
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-3 flex items-center"
+              onClick={() => setVisible(!isVisible)}
+            >
+              {/* {!isVisible ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-.008.027-.017.053-.025.08m-1.222 2.285c-1.176 2.645-3.978 4.635-7.295 4.635-3.317 0-6.12-1.99-7.295-4.635-.008-.027-.017-.053-.025-.08"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.875 18.825L12 20m0 0l-1.875-1.175m1.875 1.175V16m0 0a7.07 7.07 0 01-6.5-4m13 0a7.07 7.07 0 01-6.5 4m0-4a7.07 7.07 0 006.5-4m-13 0a7.07 7.07 0 006.5 4"
+                  />
+                </svg>
+              )} */}
+               {isVisible ? "🙈" : "👁️"}
+            </button>
+          </div>
           <button
-            disabled = {loading}
+            disabled={loading}
             className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
             {
               loading ? (
-                <Loading/>
+                <Loading />
               ) : (
                 "Sign In"
               )
             }
           </button>
-          
         </form>
 
         <div className="flex justify-center mt-6 gap-2">
@@ -83,6 +128,7 @@ export default function SignIn() {
           </button>
         </div>
 
+        
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </div>
     </div>

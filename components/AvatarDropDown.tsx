@@ -6,7 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 
 interface AvatarDropdownProps {
   avatarUrl?: string;
-  userName: string;
+  userName?: string;
 }
 
 const AvatarDropdown: React.FC<AvatarDropdownProps> = ({ avatarUrl, userName }) => {

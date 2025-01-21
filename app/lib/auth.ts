@@ -3,15 +3,16 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const NEXT_AUTH = {
   providers: [
     CredentialsProvider({
-      name: "Username",
+      name: "Mobile",
 
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: { label: "Mobile", type: "text", placeholder: "98********" },
         password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials: any) {
-        const response: any = await signinaction(credentials.username, credentials.password)
+        console.log("credentials",credentials)
+        const response: any = await signinaction(credentials.mobile, credentials.password)
         console.log("Response", response)
         if (response?.user){
           return response?.user
@@ -27,19 +28,24 @@ export const NEXT_AUTH = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: ({ token, user }: any) => {
+      // console.log("user", user)
       if (user) {
         token.id = user.id; // Add `id` to the token
-        token.username = user.username;
-        // console.log("JWT TOken", token)
+        token.fullname = user.fullname;
+        token.role = user.role;
+        
       }
+      // console.log("token", token)
       return token;
     },
     // Include `id` from the token in the session
     session: ({ session, token }: any) => {
+      
       if (token) {
         session.user.id = token.id; // Map `id` from token to session.user
-        session.user.username = token.username;
-        // console.log("Session info", session)
+        session.user.fullname = token.fullname;
+        session.user.role = token.role;
+        
       }
       return session;
     },
