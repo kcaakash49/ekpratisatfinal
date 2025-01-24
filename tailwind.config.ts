@@ -13,9 +13,14 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        'custom':["Roboto slab"]
+        custom: ["Roboto slab"],
       },
     },
   },
   plugins: [],
+  variants: {
+    extend: {
+      scrollBehavior: ["responsive"],
+    },
+  },
 } satisfies Config;

@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col h-screen">
         <Providers>
-          <Header />
+          {/* <Header /> */}
 
           <div className="flex-grow">{children}</div>
           <Footer />
