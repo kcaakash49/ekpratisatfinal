@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
+import Header from "@/components/Header";
 
 export default function SignIn() {
   const [mobile, setMobile] = useState("");
@@ -35,6 +36,8 @@ export default function SignIn() {
   };
 
   return (
+    <div className="h-full">
+      <Header/>
     <div
       className="flex justify-center items-center bg-gradient-to-r from-blue-900 to-purple-900 h-full"
     >
@@ -131,6 +134,8 @@ export default function SignIn() {
         
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </div>
+    </div>
+
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Header from "./Header";
 
-export default function() {
+export default function () {
   return (
     <div className="relative min-h-screen">
       {/* Background Image with Parallax Effect */}
@@ -37,7 +37,7 @@ export default function() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 w-full flex justify-center">
+      {/* <div className="absolute bottom-6 w-full flex justify-center">
         <a
           href="#category-section"
           className="flex flex-col items-center text-white animate-bounce"
@@ -47,7 +47,24 @@ export default function() {
           </div>
           <span className="text-sm mt-2">Scroll</span>
         </a>
+      </div> */}
+      <div className="absolute bottom-6 w-full flex justify-center">
+        <a
+          href="#category-section"
+          className="flex items-center justify-center w-20 h-20 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-all duration-300 ease-in-out animate-bounce"
+        >
+          {/* Arrow inside the bouncing circle */}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8 text-white">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </a>
       </div>
+
+
+
+
+
+
     </div>
   );
 }

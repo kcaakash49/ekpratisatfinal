@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return (
-      <footer className="bg-gray-300 text-black py-8">
+      <footer className=" text-black py-8">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* About Section */}
           <div className="flex flex-col items-center">
