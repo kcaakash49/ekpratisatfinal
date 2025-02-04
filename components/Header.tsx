@@ -4,6 +4,7 @@ import React from "react";
 
 import AuthComponent from "./AuthComponent";
 import { SearchComponent } from "./SearchComponent";
+import SearchBar from "./SearchBar";
 
 const Header = ({ className }: any) => {
   const headerItem = [
@@ -18,17 +19,20 @@ const Header = ({ className }: any) => {
   ];
   return (
     <div>
-      <div className="flex justify-between items-center mx-auto py-2 max-w-7xl">
+      <div className="flex justify-between items-center mx-auto px-20 py-2">
 
         <div>
           <a href="/">
             <img
               src="/logofinal.png"
               alt=""
-              className="h-12 w-12 sm:h-40 sm:w-72 pb-3"
+              className="h-12 w-12 sm:h-40 sm:w-56"
             />
           </a>
         </div>
+        
+          <SearchComponent />
+
         
 
         <div>

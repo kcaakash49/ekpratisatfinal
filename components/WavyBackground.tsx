@@ -1,4 +1,5 @@
 import Header from "./Header";
+import SearchBar from "./SearchBar";
 import { SearchComponent } from "./SearchComponent";
 
 export default function HeroSection() {
@@ -25,7 +26,7 @@ export default function HeroSection() {
         <Header />
 
         {/* Centered Text & SearchComponent */}
-        <div className="flex flex-1 flex-col items-center text-center px-4 sm:px-8 lg:px-28 max-w-4xl mx-auto font-custom justify-center">
+        <div className="flex flex-1 flex-col items-center text-center px-4 sm:px-8 lg:px-28 max-w-7xl mx-auto font-custom justify-center">
           <h1 className="text-white font-bold text-3xl sm:text-4xl lg:text-6xl leading-tight">
             The Simplest <br /> Way to Find Property
           </h1>
@@ -35,15 +36,19 @@ export default function HeroSection() {
           </p>
 
           {/* Search Bar */}
-          
-            <SearchComponent />
+          <div className="pt-10 w-full">
+            <SearchBar/>
+
+          </div>
           
         </div>
+        
         <div className="absolute bottom-20 w-full flex justify-center">
+          
           <a
             href="#listing-section"
-            className="flex items-center justify-center w-14 h-14 bg-pink-500 text-white rounded-full 
-          hover:bg-pink-600 transition-all duration-300 ease-in-out animate-bounce"
+            className="flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full 
+          hover:bg-green-600 transition-all duration-300 ease-in-out animate-bounce"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

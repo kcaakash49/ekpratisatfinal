@@ -30,7 +30,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({ avatarUrl, userName }) 
         <img
           src={avatarUrl || '/avatar.svg'}
           alt={userName}
-          className="w-12 h-12 rounded-full"
+          className="w-20 h-20 rounded-full"
         />
       </button>
 

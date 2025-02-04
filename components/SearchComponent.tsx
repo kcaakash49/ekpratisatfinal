@@ -70,7 +70,7 @@ export const SearchComponent = () => {
         //     {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
 
         // </div>
-        <div className="w-full max-w-lg">
+        <div className="w-full max-w-2xl">
             <div className="relative mt-6">
                 <input
                     type="text"
@@ -84,7 +84,7 @@ export const SearchComponent = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <button
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-pink-500 text-white rounded-full p-2 hover:bg-pink-600 cursor-pointer"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white rounded-full p-2 cursor-pointer"
                     onClick={handleSearch}
                     disabled={search.trim() === "" || loading}
                 >
