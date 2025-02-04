@@ -2,10 +2,10 @@ import Header from "./Header";
 
 export default function () {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-[80vh] xl:min-h-[85vh] lg:min-h-[90vh] md:min-h-screen">
       {/* Background Image with Parallax Effect */}
       <div
-        className="absolute top-0 left-0 w-full h-full bg-fixed bg-center bg-cover"
+        className="absolute top-0 left-0 w-full h-full md:bg-fixed sm:bg-scroll bg-center bg-cover"
         style={{
           backgroundImage:
             "url('https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg')",
@@ -36,21 +36,10 @@ export default function () {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      {/* <div className="absolute bottom-6 w-full flex justify-center">
-        <a
-          href="#category-section"
-          className="flex flex-col items-center text-white animate-bounce"
-        >
-          <div className="rounded-full border-2 border-white w-8 h-8 flex items-center justify-center">
-            <span className="ion-ios-arrow-round-down"></span>
-          </div>
-          <span className="text-sm mt-2">Scroll</span>
-        </a>
-      </div> */}
+     {/* scroll indicatior */}
       <div className="absolute bottom-6 w-full flex justify-center">
         <a
-          href="#category-section"
+          href="#listing-section"
           className="flex items-center justify-center w-20 h-20 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-all duration-300 ease-in-out animate-bounce"
         >
           {/* Arrow inside the bouncing circle */}

@@ -1,3 +1,5 @@
+
+
 import React from "react";
 
 import AuthComponent from "./AuthComponent";
@@ -27,10 +29,7 @@ const Header = ({ className }: any) => {
             />
           </a>
         </div>
-        <div>
-          <SearchComponent />
-
-        </div>
+        
 
         <div>
           <AuthComponent />

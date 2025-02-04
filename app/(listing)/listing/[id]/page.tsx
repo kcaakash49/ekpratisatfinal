@@ -1,5 +1,6 @@
 import { getListingAction } from "@/action/getListingAction";
 import { listingDetailAction } from "@/action/listingDetailAction";
+import Header from "@/components/Header";
 import SwiperComponent from "@/components/SwiperComponent";
 
 
@@ -28,6 +29,8 @@ export default async function Page({ params }: any) {
     </div>
   }
   return (
+    <div>
+      <Header/>
     <div className="p-6">
       <div className="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Image Section */}
@@ -83,6 +86,7 @@ export default async function Page({ params }: any) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

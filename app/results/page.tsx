@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/Header";
 import ListingListComponent from "@/components/ListingListComponent";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react"
@@ -27,7 +28,11 @@ export default function(){
 
     },[searchParams])
     return (
-        <ListingListComponent listing={data} />
+        <div>
+            <Header/>
+            <ListingListComponent listing={data} />
+
+        </div>
             
         
         

@@ -17,7 +17,7 @@ export default async function ListingsPage() {
     }
 
     return (
-      <div className="max-w-7xl mx-auto pb-10">
+      <div id = "listing-section" className="max-w-7xl mx-auto pb-10">
         <div className="text-4xl font-bold font-custom pb-10">Trial Added</div>
         <div className="flex flex-wrap">
           {data.map((item: any, index: any) => (
