@@ -1,42 +1,40 @@
-
-
 import React from "react";
-
 import AuthComponent from "./AuthComponent";
 import { SearchComponent } from "./SearchComponent";
-import SearchBar from "./SearchBar";
 
 const Header = ({ className }: any) => {
   const headerItem = [
-    {
-      item: "Home",
-      path: "/",
-    },
-    {
-      item: "About",
-      path: "/about",
-    },
+    { item: "Home", path: "/" },
+    { item: "About", path: "/about" },
   ];
-  return (
-    <div>
-      <div className="flex justify-between items-center mx-auto px-20 py-2">
 
-        <div>
+  return (
+    <div className="w-full shadow-md">
+      <div className="flex flex-wrap items-center justify-between px-4 sm:px-8 md:px-20 py-3">
+        {/* Logo Section */}
+        <div className="flex-shrink-0">
           <a href="/">
             <img
               src="/logofinal.png"
-              alt=""
-              className="h-12 w-12 sm:h-40 sm:w-56"
+              alt="Logo"
+              className="h-12 w-20 sm:h-20 sm:w-28 md:h-40 md:w-56 transition-all duration-300"
             />
           </a>
         </div>
-        
+
+        {/* Search Component (Hides on very small screens) */}
+        <div className="hidden sm:flex flex-1 justify-center">
           <SearchComponent />
+        </div>
 
-        
-
-        <div>
+        {/* Authentication Component */}
+        <div className="flex-shrink-0">
           <AuthComponent />
+        </div>
+
+        {/* Show SearchComponent below header on small screens */}
+        <div className="w-full sm:hidden mt-2">
+          <SearchComponent />
         </div>
       </div>
     </div>

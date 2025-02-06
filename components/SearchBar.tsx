@@ -10,9 +10,9 @@ export default function SearchBar() {
   const [bathrooms, setBathrooms] = useState(1);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md flex flex-wrap items-center gap-4">
+    <div className="bg-white p-4 rounded-lg shadow-md flex flex-col mb-10 md:flex-wrap md:flex-row items-center gap-4 w-full">
       {/* Location Dropdown */}
-      <div>
+      <div className="w-full md:w-auto">
         <label className="block text-gray-700">Location</label>
         <select
           value={location}
@@ -26,7 +26,7 @@ export default function SearchBar() {
       </div>
 
       {/* Property Type Dropdown */}
-      <div>
+      <div className="w-full md:w-auto">
         <label className="block text-gray-700">Property Type</label>
         <select
           value={propertyType}
@@ -40,7 +40,7 @@ export default function SearchBar() {
       </div>
 
       {/* Price Range Slider */}
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full md:w-auto">
         <label className="block text-gray-700">Price</label>
         <input
           type="range"
@@ -48,15 +48,15 @@ export default function SearchBar() {
           max="300"
           value={price}
           onChange={(e) => setPrice(parseInt(e.target.value))}
-          className="w-40 accent-green-500"
+          className="w-full accent-green-500"
         />
         <span>{price}k</span>
       </div>
 
       {/* Bedrooms */}
-      <div>
+      <div className="w-full md:w-auto">
         <label className="block text-gray-700">Bedrooms</label>
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap gap-2">
           {[1, 2, 3, 4].map((num) => (
             <button
               key={num}
@@ -70,9 +70,9 @@ export default function SearchBar() {
       </div>
 
       {/* Bathrooms */}
-      <div>
+      <div className="w-full md:w-auto">
         <label className="block text-gray-700">Bathrooms</label>
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap gap-2">
           {[1, 2, 3, 4].map((num) => (
             <button
               key={num}
@@ -86,7 +86,9 @@ export default function SearchBar() {
       </div>
 
       {/* Search Button */}
-      <button className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">Search</button>
+      <button className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 w-full md:w-auto">
+        Search
+      </button>
     </div>
   );
 }
