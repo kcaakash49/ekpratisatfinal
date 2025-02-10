@@ -18,5 +18,25 @@ export const categoryList = [
         type: "Office",
         path: "category/office",
         img: "categoryImage/office.png"
+    },
+    {
+        type: "Boys Hostel",
+        path: "category/hostel_boys",
+        img: "categoryImage/hostel_boys.webp"
+    },
+    {
+        type: "Girls Hostel",
+        path: "category/hostel_girls",
+        img: "categoryImage/hostel_girls.webp"
+    },
+    {
+        type: "Flat",
+        path: "category/flat",
+        img: "categoryImage/flat.webp"
+    },
+    {
+        type: "Room",
+        path: "category/room",
+        img: "categoryImage/room.webp"
     }
 ]

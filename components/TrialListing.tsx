@@ -19,7 +19,7 @@ export default async function ListingsPage() {
     return (
       <div id = "listing-section" className="max-w-7xl mx-auto pb-10">
         <div className="text-4xl font-bold font-custom pb-10">Trial Added</div>
-        <div className="flex flex-wrap">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((item: any, index: any) => (
             <div key={index} className="mx-auto my-2 sm:mx-2 ">
               <a href={`/listing/${item.id}`}>

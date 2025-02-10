@@ -9,7 +9,7 @@ const Header = ({ className }: any) => {
   ];
 
   return (
-    <div className="w-full shadow-md">
+    <div className="w-full">
       <div className="flex flex-wrap items-center justify-between px-4 sm:px-8 md:px-20 py-3">
         {/* Logo Section */}
         <div className="flex-shrink-0">

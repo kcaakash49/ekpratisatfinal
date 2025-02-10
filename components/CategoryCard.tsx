@@ -1,14 +1,38 @@
-export default function({ img, type }: { img: string, type: string }) {
+// export default function({ img, type }: { img: string, type: string }) {
+//     return (
+//         <div className="relative w-56 h-40 border-2 border-black rounded-lg overflow-hidden shadow-lg">
+//             {/* Background Image */}
+//             <div
+//                 className="absolute inset-0 bg-cover bg-center"
+//                 style={{ backgroundImage: `url(${img})` }}
+//             ></div>
+            
+//             {/* Overlay */}
+//             <div className="absolute inset-0 bg-black bg-opacity-40 hover:bg-opacity-50 flex items-center justify-center">
+//                 <span className="text-white font-bold font-custom text-xl text-center">{type}</span>
+//             </div>
+//         </div>
+//     );
+// }
+
+export default function({ img, type }: { img: string; type: string }) {
     return (
-        <div className="border-2 border-black rounded-lg overflow-hidden shadow-lg">
-            <div className="flex flex-col items-center p-4 hover:bg-slate-300">
-                <div className="sm:w-56 sm:h-56 lg:w-56 lg:h-56">
-                    <img src={img} alt="" className="w-full h-full" />
-                </div>
-                <div className="font-bold font-custom text-center mt-2">
-                    {type}
-                </div>
-            </div>
+      <div className="w-[320px] sm:w-56 border-2 border-black rounded-lg overflow-hidden shadow-lg">
+        <div className="relative aspect-[7/5]">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${img})` }}
+          ></div>
+          
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-40 hover:bg-opacity-50 flex items-center justify-center">
+            <span className="text-white font-bold font-custom text-xl text-center">
+              {type}
+            </span>
+          </div>
         </div>
+      </div>
     );
-}
+  }
+  

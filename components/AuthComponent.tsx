@@ -71,7 +71,7 @@ export default function AuthComponent() {
   return (
     <div>
       {session.status === "loading" ? (
-        <div>Loading...</div>
+        <div></div>
       ) : !session.data ? (
         <LoginButton />
       ) : (

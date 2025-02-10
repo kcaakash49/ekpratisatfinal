@@ -16,7 +16,7 @@ export default function HeroSection() {
           muted
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/video/partical.mp4" type="video/mp4" />
+          <source src="/video/scene.mp4" type="video/mp4" />
           {/* Add fallback content in case video can't be loaded */}
           Your browser does not support the video tag.
         </video>

@@ -14,7 +14,7 @@ export default async function Home() {
     <div>
       {/* <VideoComponent/> */}
       <WavyBackground/>
-      {/* <CategoryComponent/> */}
+      <CategoryComponent/>
       {/* <RecentListing/> */}
       <TrialListing/>
       <About/>
