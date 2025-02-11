@@ -13,7 +13,7 @@ import SwiperComponent from "./SwiperComponent";
 
 //             <div>  {location.length > 35 ? `${location.substring(0, 35)}...` : location}</div>
 //             <div>Rs. {price}</div>
-            
+
 //         </div>
 //     )
 // }
@@ -47,7 +47,7 @@ import SwiperComponent from "./SwiperComponent";
 
 export default function ListingCard({ title, description, location, price, oldPrice, beds, baths, sqft, images }: any) {
   return (
-    <div className="relative max-w-[400px] sm:w-[350px] md:w-[380px] lg:w-[430px] h-auto mb-20">
+    <div className="relative w-full max-w-[430px] h-auto mb-20">
       {/* Background Card (Image) */}
       <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-lg">
         {images && images.length > 0 ? (
@@ -56,7 +56,7 @@ export default function ListingCard({ title, description, location, price, oldPr
           <p className="text-center text-gray-500">No images available</p>
         )}
       </div>
-      
+
       {/* Foreground Card (Info) */}
       <div className="absolute top-[75%] left-[10%] right-[5%] bg-white p-4 shadow-lg rounded-lg z-10">
         {/* Price Info */}
@@ -64,20 +64,20 @@ export default function ListingCard({ title, description, location, price, oldPr
           <span className="text-gray-500 line-through">Rs. {oldPrice}</span>
           <span className="text-black font-bold text-lg"> Rs. {price}/mo</span>
         </div>
-        
+
         {/* Property Details */}
         <div className="flex items-center text-gray-600 text-sm mb-2">
-          <span className="mr-2">🏡 {beds}</span>
-          <span className="mr-2">🚿 {baths}</span>
-          <span>🏢 {sqft} sqft</span>
+          {beds !== undefined && <span>🏡 {beds}</span>}
+          {baths !== undefined && <span>🚿 {baths}</span>}
+          {sqft !== undefined && <span>🏢 {sqft} sqft</span>}
         </div>
-        
+
         {/* Title and Location */}
         <div className="text-lg font-bold">{title}</div>
         <div className="text-gray-500">{location}</div>
       </div>
-      
-     
+
+
     </div>
   );
 }

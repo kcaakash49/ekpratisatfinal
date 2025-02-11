@@ -6,9 +6,10 @@ import React, { useState } from "react";
 import Loading from "./Loading";
 import { Role } from "@prisma/client";
 import { signUpSchema, SignUpSchema } from "@/zod/schema";
+import Header from "./Header";
 
 interface ResponseType {
-  message? : string,
+  message?: string,
   error?: {
     fullname?: string,
     email?: string,
@@ -29,7 +30,7 @@ export function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>({});
   const [message, setMessage] = useState("");
-  const [isVisible,setVisible] = useState(false)
+  const [isVisible, setVisible] = useState(false)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -60,142 +61,145 @@ export function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Sign Up
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
-          <div>
-            <label
-              htmlFor="fullname"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullname"
-              name="fullname"
-              value={formData.fullname}
-              onChange={handleChange}
-              placeholder="John Doe"
-              className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-            {error?.fullname && (
-              <p className="text-red-500 text-sm text-center">
-                {error.fullname}
-              </p>
-            )}
-          </div>
-          <div>
-            <label
-              htmlFor="fullname"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Mobile
-            </label>
-            <input
-              type="number"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleChange}
-              placeholder="98********"
-              className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              pattern="^\d{10}$"
-              title="Number must be exactly 10 digits"
-              required
-            />
-            {error?.mobile && (
-              <p className="text-red-500 text-sm text-center">{error.mobile}</p>
-            )}
-          </div>
-          {/* Email */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="example@mail.com"
-              className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-            {error?.email && (
-              <p className="text-red-500 text-sm text-center">{error.email}</p>
-            )}
-          </div>
-          <div>
-            <label
-              htmlFor="role"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Role
-            </label>
-            <select
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-              required
-            >
-              <option value="USER">User</option>
-              <option value="PARTNER">Partner</option>
-            </select>
-          </div>
-          {/* Password */}
-        
-          <div className="relative">
-            <input
-              type={isVisible ? "text" : "password"}
-              placeholder="Password"
-              className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              value={formData.password}
-              required
-              id="password"
-              name = "password"
-              onChange={handleChange}
-            />
+    <div className="h-full flex flex-col">
+      {/* Header */}
+      <Header />
+
+      {/* Main content container */}
+      <div className="flex-grow flex items-center justify-center">
+        <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+            Sign Up
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Full Name */}
+            <div>
+              <label htmlFor="fullname" className="block text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                value={formData.fullname}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+              {error?.fullname && (
+                <p className="text-red-500 text-sm text-center">
+                  {error.fullname}
+                </p>
+              )}
+            </div>
+
+            {/* Mobile */}
+            <div>
+              <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
+                Mobile
+              </label>
+              <input
+                type="number"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                placeholder="98********"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                pattern="^\d{10}$"
+                title="Number must be exactly 10 digits"
+                required
+              />
+              {error?.mobile && (
+                <p className="text-red-500 text-sm text-center">{error.mobile}</p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="example@mail.com"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+              {error?.email && (
+                <p className="text-red-500 text-sm text-center">{error.email}</p>
+              )}
+            </div>
+
+            {/* Role */}
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                Role
+              </label>
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                required
+              >
+                <option value="USER">User</option>
+                <option value="PARTNER">Partner</option>
+              </select>
+            </div>
+
+            {/* Password */}
+            <div className="relative">
+              <input
+                type={isVisible ? "text" : "password"}
+                placeholder="Password"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                value={formData.password}
+                required
+                id="password"
+                name="password"
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-3 flex items-center"
+                onClick={() => setVisible(!isVisible)}
+              >
+                {isVisible ? "🙈" : "👁️"}
+              </button>
+            </div>
+            {error?.password && <p className="text-red-500 text-sm text-center">{error.password}</p>}
+
+            {/* Submit */}
             <button
-              type="button"
-              className="absolute inset-y-0 right-3 flex items-center"
-              onClick={() => setVisible(!isVisible)}
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              
-               {isVisible ? "🙈" : "👁️"}
+              {loading ? <Loading /> : "Sign Up"}
             </button>
-          </div>
-          {error?.password && <p className="text-red-500 text-sm text-center">{error.password}</p>}
-          {/* Submit */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {loading ? <Loading /> : "Sign Up"}
-          </button>
-        </form>
-        {error?.error && (
-          <p className="text-red-500 text-sm text-center p-2">{error.error}</p>
-        )}
-        {message && <p className="text-green-600 text-sm p-2 text-center"> {message}</p>}
-        <p className="text-sm text-gray-500 text-center mt-4">
-          Already have an account?{" "}
-          <a href="/auth" className="text-blue-600 hover:underline">
-            Log in
-          </a>
-        </p>
+          </form>
+
+          {error?.error && (
+            <p className="text-red-500 text-sm text-center p-2">{error.error}</p>
+          )}
+          {message && <p className="text-green-600 text-sm p-2 text-center">{message}</p>}
+
+          <p className="text-sm text-gray-500 text-center mt-4">
+            Already have an account?{" "}
+            <a href="/auth/signin" className="text-blue-600 hover:underline">
+              Log in
+            </a>
+          </p>
+        </div>
       </div>
     </div>
+
+
   );
 }

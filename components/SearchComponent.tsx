@@ -42,41 +42,13 @@ export const SearchComponent = () => {
         }
     }
     return (
-        // <div>
-        //     <div className="flex">
-        //         <button
-        //             className=" text-white px-4 py-2 focus:outline-none focus:ring-2 hover:bg-gray-400 rounded-full"
-        //             onClick={handleSearch}
-        //             disabled={search.trim() === "" || loading}
-        //         >
-        //             {loading ? "Searching..." : "🔍"}
-        //         </button>
-        //         <div>
-        //             <input
-        //                 type="text"
-        //                 name="search"
-        //                 id="search"
-        //                 placeholder="search ...."
-        //                 className="px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
-        //                 onChange={(e) => setSearch(e.target.value)}
-        //                 value={search}
-        //                 onKeyDown={handleKeyPress}
-        //                 disabled={loading}
-
-        //             />
-
-        //         </div>
-        //     </div>
-        //     {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
-
-        // </div>
+       
         <div className="w-full max-w-2xl">
-            <div className="relative mt-6">
+            <div className="relative">
                 <input
                     type="text"
                     className="w-full rounded-full border border-gray-300 py-3 px-5 pr-14 shadow-md focus:outline-none"
                     placeholder="Search location"
-                    id="search"
                     value={search}
                     onKeyDown={handleKeyPress}
                     disabled={loading}

@@ -23,7 +23,7 @@ const Header = ({ className }: any) => {
         </div>
 
         {/* Search Component (Hides on very small screens) */}
-        <div className="hidden sm:flex flex-1 justify-center">
+        <div className="hidden sm:flex flex-1 justify-center px-4">
           <SearchComponent />
         </div>
 
