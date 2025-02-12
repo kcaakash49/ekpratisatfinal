@@ -3,16 +3,16 @@ import SwiperComponent from "./SwiperComponent";
 export default function ({ title, description, price, type, location, bathrooms, rooms, images }: any) {
   return (
     <div className="border border-gray-200 rounded-lg shadow-lg overflow-hidden bg-white transform hover:scale-105 transition-transform duration-300">
-      <div className="flex flex-col md:flex-row h-full">
+      <div className="flex flex-col md:flex-row">
         {/* Image Section */}
-        <div className="w-full md:w-1/3 h-48 md:h-full">
+        <div className="w-full md:w-1/3 h-48 md:h-64 lg:h-72">
           <div className="w-full h-full bg-gray-300 flex items-center justify-center">
             <SwiperComponent images={images} />
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="w-full md:w-2/3 p-4 flex flex-col justify-between h-full">
+        <div className="w-full md:w-2/3 p-4 flex flex-col justify-between">
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">{title}</h2>
             <p className="text-sm md:text-base text-gray-700 mb-3 line-clamp-2">{description}</p>
