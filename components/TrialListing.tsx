@@ -1,12 +1,14 @@
 import ListingCard from "@/components/ListingCard";
 import { getListingService } from "@/services/getListingService";
 import axios from "axios";
+import RecentAll from "./RecentAll";
 
 
 // export const dynamic = "force-dynamic";
 export default async function ListingsPage() {
   try {
         const data: any = await getListingService();
+        
 
     if (!data || data.length === 0) {
       return (
@@ -17,8 +19,11 @@ export default async function ListingsPage() {
     }
 
     return (
-      <div id="listing-section" className="max-w-7xl mx-auto pb-10 px-4">
-        <div className="text-4xl font-bold font-custom pb-6 text-center">Recent Listings</div>
+      <div id="listing-section" className="max-w-7xl mx-auto pb-10 px-4 pt-4">
+        <div className="flex justify-between items-center pb-4">
+        <div className="text-base md:text-xl lg:text-3xl font-bold font-custom">Recent Listings</div>
+        <RecentAll/>
+        </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {data.map((item :any, index: any) => (
@@ -43,7 +48,7 @@ export default async function ListingsPage() {
     );
   }catch(e){
     <div>
-      
+
     </div>
   }
 }
