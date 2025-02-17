@@ -34,11 +34,12 @@ export default async function () {
                   description={item.description}
                   location={item.location}
                   price={item.price}
-                  oldPrice={item.oldPrice}
-                  beds={item.beds}
-                  baths={item.baths}
-                  sqft={item.sqft}
+                  
+                  beds={item.bedrooms}
+                  baths={item.bathrooms}
+                  sqft={item.area}
                   images={item.images}
+                  type = {item.type}
                 />
               </a>
             </div>

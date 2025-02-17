@@ -45,7 +45,7 @@ import SwiperComponent from "./SwiperComponent";
 //   );
 // }
 
-export default function ListingCard({ title, description, location, price, oldPrice, beds, baths, sqft, images }: any) {
+export default function ListingCard({ title, description, location, price, oldPrice, beds, baths, sqft, images,type }: any) {
   return (
     <div className="relative w-full max-w-[430px] h-auto mb-20">
       {/* Background Card (Image) */}
@@ -61,8 +61,13 @@ export default function ListingCard({ title, description, location, price, oldPr
       <div className="absolute top-[75%] left-[10%] right-[5%] bg-white p-4 shadow-lg rounded-lg z-10">
         {/* Price Info */}
         <div className="mb-2">
-          <span className="text-gray-500 line-through">Rs. {oldPrice}</span>
-          <span className="text-black font-bold text-lg"> Rs. {price}/mo</span>
+          {
+            type === "rent" && <span className="text-black font-bold text-lg"> Rs. {price}/mo</span>
+          }
+          {
+            type === "sell" && <span className="text-black font-bold text-lg"> Rs. {price}</span>
+          }
+         
         </div>
 
         {/* Property Details */}
