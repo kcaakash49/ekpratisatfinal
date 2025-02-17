@@ -27,6 +27,7 @@
 // }
 
 import client from "@/db";
+import { revalidatePath } from "next/cache";
 
 export async function deleteListingService(id: number) {
     console.log("id", id);
@@ -81,7 +82,7 @@ export async function deleteListingService(id: number) {
                 },
             }),
         ]);
-
+        revalidatePath("/")
         return {
             message: "Listing Deleted Successfully",
         };
