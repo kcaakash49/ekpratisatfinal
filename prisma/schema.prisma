@@ -51,6 +51,25 @@ model Image {
   listingId Int
 }
 
+model TrashListings {
+  id Int @unique
+  title String
+  description String
+  bathrooms Int?
+  bedrooms Int?
+  location String
+  price Int
+  type String
+  category String
+  landArea Int?
+  numberOfFloors Int?
+  area Int?
+  houseArea Int?
+  userId Int
+  images String[]
+  created  DateTime
+}
+
 enum Role{
   USER
   PARTNER
