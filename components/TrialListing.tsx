@@ -5,7 +5,7 @@ import RecentAll from "./RecentAll";
 
 
 // export const dynamic = "force-dynamic";
-export default async function ListingsPage() {
+export default async function () {
   try {
         const data: any = await getListingService();
         

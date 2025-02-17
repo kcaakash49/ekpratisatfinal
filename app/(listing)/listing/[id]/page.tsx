@@ -30,7 +30,7 @@ export default async function Page({ params }: any) {
   }
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
     <div className="p-6">
       <div className="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Image Section */}

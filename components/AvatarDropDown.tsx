@@ -52,6 +52,15 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({ avatarUrl, userName }) 
             </li>
             <li>
               <Link
+                href="/my-listings"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsOpen(false)}
+              >
+                My Listings
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/update-profile"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => setIsOpen(false)}

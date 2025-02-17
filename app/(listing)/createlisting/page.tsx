@@ -123,7 +123,7 @@ const CreateListingForm = () => {
 
     return (
         <>
-            <Header/>
+            {/* <Header/> */}
             <div className='p-6'>
 
                 <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
