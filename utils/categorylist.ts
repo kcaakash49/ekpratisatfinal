@@ -15,8 +15,8 @@ export const categoryList = [
         img: "categoryImage/land.jpg"
     },
     {
-        type: "Office",
-        path: "category/office",
+        type: "Business",
+        path: "category/business",
         img: "categoryImage/office.png"
     },
     {

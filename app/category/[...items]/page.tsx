@@ -7,25 +7,30 @@ import Link from "next/link";
 
 
 export default async function ({ params, searchParams }: any) {
-    const category = await params;
-    // console.log(category.items[0])
-    const searchParam = await searchParams;
-    const page = Number(searchParam?.page) || 1;
-    const limit = 5; // Number of items per pag
+  const category = await params;
+  // console.log(category.items[0])
+  const searchParam = await searchParams;
+  const page = Number(searchParam?.page) || 1;
+  const limit = 5; // Number of items per pag
 
 
-    const { data: listings, totalPages, currentPage } = await categoryAction(category.items[0], page, limit);
+  const { data: listings, totalPages, currentPage } = await categoryAction(category.items[0], page, limit);
 
-    if (listings.length == 0) {
-        return <div className="h-full flex items-center justify-center">
-            No records found
-        </div>
-    }
+  if (listings.length == 0) {
     return (
-        <div>
-            <Header />
-            <ListingListComponent listing={listings} />
-            <div className="flex justify-center space-x-4 mt-4">
+      <div className="flex flex-col h-full">
+        <Header />
+        <div className="flex flex-grow items-center justify-center ">
+          No records found
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <Header />
+      <ListingListComponent listing={listings} />
+      <div className="flex justify-center space-x-4 mt-4">
         {/* Previous Button */}
         {currentPage > 1 && (
           <Link
@@ -49,8 +54,8 @@ export default async function ({ params, searchParams }: any) {
           </Link>
         )}
       </div>
-        </div>
+    </div>
 
-    )
+  )
 
 }

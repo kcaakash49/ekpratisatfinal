@@ -12,7 +12,7 @@ import Header from '@/components/Header';
 import Loading from '@/components/Loading';
 import { CreateListingSchema } from '@/zod/schema';
 import { useRouter } from 'next/navigation';
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
 const CreateListingForm = () => {
     // State management
@@ -76,6 +76,50 @@ const CreateListingForm = () => {
 
 
     };
+
+    useEffect(() => {
+        if (formData.category === "house"){
+            setFormData(prev => ({
+                ...prev,
+                area: null
+            }))
+        } else if (formData.category === "land"){
+            setFormData(prev => ({
+                ...prev,
+                bedrooms: null,
+                bathrooms: null,
+                houseArea: null,
+                numberOfFloors: null,
+                area: null,
+        
+            }))
+        } else if (formData.category === "apartment" || formData.category === "business" || formData.category === "flat"){
+            setFormData(prev => ({
+                ...prev,
+                landArea: null,
+                houseArea: null,
+                numberOfFloors: null
+            }))
+        } else if (formData.category === "room"){
+            setFormData(prev => ({
+                ...prev,
+                numberOfFloors: null,
+                area: null,
+                houseArea: null,
+                landArea: null
+            }))
+        } else if (formData.category === "hostel_boys" || formData.category === "hostel_girls"){
+            setFormData(prev => ({
+                ...prev,
+                landArea: null,
+                numberOfFloors: null,
+                area: null,
+                houseArea: null,
+                bathrooms: null,
+                bedrooms: null
+            }))
+        }
+    },[formData.category])
 
     return (
         <>

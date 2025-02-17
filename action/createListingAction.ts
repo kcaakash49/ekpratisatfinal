@@ -7,7 +7,7 @@ import { CreateListingSchema } from "@/zod/schema";
 import { getServerSession } from "next-auth";
 
 export async function createListingAction(formData: CreateListingSchema){
-    
+    console.log("FormData", formData)
     const session = await getServerSession(NEXT_AUTH)
     // console.log("Session", session);
     if (!session || !session.user?.id){
