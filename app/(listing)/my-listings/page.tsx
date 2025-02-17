@@ -86,7 +86,7 @@ export default function (){
         }
     };
     if (listing.length === 0){
-        return <div className="flex items-center justify-center h-full">
+        return <div className="h-full flex items-center justify-center">
             No Records Found
         </div>
     }
