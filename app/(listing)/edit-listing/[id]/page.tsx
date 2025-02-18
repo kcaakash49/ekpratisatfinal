@@ -86,9 +86,9 @@ export default function (){
                     <input
                         type="text"
                         name="category"
-                        value={listing.category || ""}
+                        value={listing.category ? listing.category.replace(/_/g, ' ').charAt(0).toUpperCase() + listing.category.replace(/_/g, ' ').slice(1) : ""}
                         disabled
-                        className="w-full p-2 border rounded bg-gray-200"
+                        className="w-full p-2 border rounded bg-gray-200 capitalize"
                     />
                 </div>
 
