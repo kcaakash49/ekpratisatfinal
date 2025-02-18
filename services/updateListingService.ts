@@ -1,4 +1,5 @@
 import client from "@/db"
+import { revalidatePath } from "next/cache";
 
 export async function updateListingService(listing: any, id: number){
     try {
@@ -25,7 +26,7 @@ export async function updateListingService(listing: any, id: number){
             },
             data: updateData
         })
-
+        revalidatePath("/")
         return {
             message: "Listing Updated Successfully",
 
