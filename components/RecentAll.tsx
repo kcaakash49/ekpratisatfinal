@@ -1,11 +1,10 @@
 "use client";
 
 import { getListingAction } from "@/action/getListingAction";
-import { getAllListingService } from "@/services/getAllListingService";
-import { getListingService } from "@/services/getListingService";
+
 import { useRouter } from "next/navigation";
 
-export default function(){
+export default function () {
     const router = useRouter();
     const handleClick = async () => {
         try {
@@ -14,7 +13,7 @@ export default function(){
             sessionStorage.setItem("searchResults", JSON.stringify(response));
             router.push("/results?query=recents")
 
-        }catch (e){
+        } catch (e) {
             console.log(e)
         }
     }

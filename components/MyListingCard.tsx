@@ -23,22 +23,14 @@ export default function MyListingCard({ title, location, price, type, created, i
         return `${Math.floor(diffInMonths / 12)} years ago`;
     };
 
-    // const handleDelete = async (e: React.MouseEvent) => {
-    //     e.preventDefault()
-    //     const confirmDelete = window.confirm("Are you sure you want to delete this listing?");
-    //     if (!confirmDelete) return;
-    //     const response = await deleteListingAction(id);
-    //     console.log(response)
-    //     if (response.message){
-    //         alert(response.message)
-    //         router.push("/my-listings")
-    //     }else if (response.error){
-    //         alert(response.error)
-    //     }
-    // }
     const handleDelete = async (e: React.MouseEvent) => {
         e.preventDefault();
         onDelete(id)
+    }
+
+    const handleEdit = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        router.push(`/edit-listing/${id}`)
     }
     return (
         <div className="w-[320px] h-[380px] border rounded-2xl shadow-lg bg-white flex flex-col overflow-hidden transition hover:shadow-2xl">
@@ -62,7 +54,7 @@ export default function MyListingCard({ title, location, price, type, created, i
 
                     <div className="flex gap-3">
                         {/* Edit Button with SVG */}
-                        <button className="flex items-center gap-1 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                        <button className="flex items-center gap-1 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" onClick={handleEdit}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 3.487a2.073 2.073 0 1 1 2.934 2.935L7.125 19.093l-3.608.41a.5.5 0 0 1-.557-.558l.41-3.608L16.862 3.487z" />
                             </svg>
