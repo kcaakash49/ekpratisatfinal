@@ -36,7 +36,6 @@ const About = () => {
             </p>
           </div>
 
-          {/* Right Section (Image) */}
           <div className="">
             <a href="/">
               <video autoPlay muted loop playsInline>

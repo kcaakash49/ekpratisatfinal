@@ -34,7 +34,7 @@ export default async function () {
                   description={item.description}
                   location={item.location}
                   price={item.price}
-                  
+                  verified = {item.verified}
                   beds={item.bedrooms}
                   baths={item.bathrooms}
                   sqft={item.area}

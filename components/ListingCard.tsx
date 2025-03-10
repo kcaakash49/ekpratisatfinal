@@ -45,7 +45,21 @@ import SwiperComponent from "./SwiperComponent";
 //   );
 // }
 
-export default function ListingCard({ title, description, location, price, oldPrice, beds, baths, sqft, images,type }: any) {
+export default function ListingCard({ 
+  title, 
+  description, 
+  location, 
+  price, 
+  oldPrice, 
+  beds, 
+  baths, 
+  sqft, 
+  images, 
+  type, 
+  verified 
+}: any) {
+
+  
   return (
     <div className="relative w-full max-w-[430px] h-auto mb-20">
       {/* Background Card (Image) */}
@@ -61,13 +75,8 @@ export default function ListingCard({ title, description, location, price, oldPr
       <div className="absolute top-[75%] left-[10%] right-[5%] bg-white p-4 shadow-lg rounded-lg z-10">
         {/* Price Info */}
         <div className="mb-2">
-          {
-            type === "rent" && <span className="text-black font-bold text-lg"> Rs. {price}/mo</span>
-          }
-          {
-            type === "sell" && <span className="text-black font-bold text-lg"> Rs. {price}</span>
-          }
-         
+          {type === "rent" && <span className="text-black font-bold text-lg"> Rs. {price}/mo</span>}
+          {type === "sell" && <span className="text-black font-bold text-lg"> Rs. {price}</span>}
         </div>
 
         {/* Property Details */}
@@ -77,12 +86,17 @@ export default function ListingCard({ title, description, location, price, oldPr
           {sqft !== undefined && <span>🏢 {sqft} sqft</span>}
         </div>
 
+        {/* Verified Status */}
+        {verified && (
+          <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+            Verified
+          </div>
+        )}
+
         {/* Title and Location */}
         <div className="text-lg font-bold">{title}</div>
         <div className="text-gray-500">{location}</div>
       </div>
-
-
     </div>
   );
 }

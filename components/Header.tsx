@@ -1,15 +1,27 @@
-import React from "react";
-import AuthComponent from "./AuthComponent";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { SearchComponent } from "./SearchComponent";
+import AvatarDropdown from "./AvatarDropDown";
+import { LoginButton } from "./LoginButton";
 
 const Header = ({ className }: any) => {
-  const headerItem = [
-    { item: "Home", path: "/" },
-    { item: "About", path: "/about" },
-  ];
+  const { data: session, status } = useSession(); 
+  const [isClient, setClient] = useState(false);
+
+  useEffect(()=> {
+    setClient(true)
+  },[])
+
+  if(!isClient){
+    return null
+  }
+
+  
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${className}`}>
       <div className="flex flex-wrap items-center justify-between px-4 sm:px-8 md:px-20 py-3">
         {/* Logo Section */}
         <div className="flex-shrink-0">
@@ -27,9 +39,18 @@ const Header = ({ className }: any) => {
           <SearchComponent />
         </div>
 
-        {/* Authentication Component */}
+        {/* Conditional Authentication Component */}
         <div className="flex-shrink-0">
-          <AuthComponent />
+          {status === "loading" ? (
+            <div>Loading...</div> // Show loading indicator while fetching session
+          ) : !session ? (
+            <LoginButton /> // If not authenticated, show login button
+          ) : (
+            <AvatarDropdown
+              avatarUrl={session.user.image || undefined}
+              userName={session.user.name || undefined}
+            />
+          )}
         </div>
 
         {/* Show SearchComponent below header on small screens */}

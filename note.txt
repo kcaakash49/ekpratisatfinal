@@ -1,0 +1,13 @@
+added role in jwtToken.ts
+added bcrypt and hased password in signup/signin services
+added create admin in utils:-
+     { fullname: "Admin User",
+      mobile: "9840271180", 
+      email: "admin@example.com", // 
+      password: await bcrypt.hash("Admin@1234", 10),}
+
+made changes in signinservice as user role checking for admin.
+signinresopnse.ts in type folder and used it in signinaction, services
+
+
+

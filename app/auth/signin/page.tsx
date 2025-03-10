@@ -1,106 +1,119 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
 import Header from "@/components/Header";
+import { SignInResponse } from "@/types/signin-response";
 
 export default function SignIn() {
-  const [mobile, setMobile] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("");
-  const [isVisible, setVisible] = useState(false)
+  const [formData, setFormData] = useState({ mobile: "", password: "" });
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { data: session } = useSession();
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setError(""); // Clear previous errors
-
-    // Call the NextAuth signIn function with "credentials"
-    setLoading(true)
-    const result = await signIn("credentials", {
-      redirect: false, // Prevent automatic redirection
-      mobile,
-      password,
-    });
-    setLoading(false)
-    console.log("result in signin", result)
-    if (result?.status == 401) {
-      setError("Wrong username or password")
-      return
-    }
-    router.push("/")
-
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    const response = await signIn("credentials", {
+      redirect: false,
+      mobile: formData.mobile,
+      password: formData.password,
+    }) as SignInResponse;
+
+    setLoading(false);
+
+    if ("error" in response) {
+      setError(response.error);
+    } else if ("user" in response) {
+      const user = response.user;
+      console.log(user); // Debugging to ensure user info is correct
+      if (user.role === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/"); // Redirect to homepage for regular users
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (session?.user?.role === "ADMIN") {
+      router.push("/admin/dashboard");
+    } else if (session?.user) {
+      // Redirect to homepage for regular users if already logged in
+      router.push("/");
+    }
+  }, [session, router]);
 
   return (
     <div className="h-full flex flex-col">
-  {/* Header */}
-  <Header />
+      <Header />
+      <div className="flex-grow flex items-center justify-center">
+        <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+            Sign In
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
+                Mobile
+              </label>
+              <input
+                type="text"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                placeholder="98********"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                pattern="^\d{10}$"
+                title="Number must be exactly 10 digits"
+                required
+              />
+            </div>
 
-  {/* Main content container */}
-  <div className="flex-grow flex justify-center items-center">
-    <div className="p-8 bg-white bg-opacity-70 shadow-2xl rounded-lg max-w-md w-full">
-      <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
-        Sign In
-      </h1>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {/* Mobile */}
-        <input
-          type="text"
-          placeholder="98********"
-          className="border p-3 rounded-lg"
-          id="mobile"
-          onChange={(e) => setMobile(e.target.value)}
-        />
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        {/* Password */}
-        <div className="relative">
-          <input
-            type={isVisible ? "text" : "password"}
-            placeholder="Password"
-            className="border p-3 rounded-lg w-full pr-10"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-3 flex items-center"
-            onClick={() => setVisible(!isVisible)}
-          >
-            {isVisible ? "🙈" : "👁️"}
-          </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {loading ? <Loading /> : "Sign In"}
+            </button>
+          </form>
+
+          <p className="text-sm text-gray-500 text-center mt-4">
+            Don't have an account?{" "}
+            <a href="/auth/signup" className="text-blue-600 hover:underline">
+              Sign up
+            </a>
+          </p>
         </div>
-
-        {/* Submit Button */}
-        <button
-          disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
-        >
-          {loading ? <Loading /> : "Sign In"}
-        </button>
-      </form>
-
-      {/* Sign Up Link */}
-      <div className="flex justify-center mt-6 gap-2">
-        <p className="text-gray-600">Don’t have an account?</p>
-        <button
-          type="button"
-          onClick={() => router.push("/auth/signup")}
-          className="text-blue-500 underline"
-        >
-          Sign Up
-        </button>
       </div>
-
-      {/* Error Message */}
-      {error && <p className="text-red-500 text-center mt-4">{error}</p>}
     </div>
-  </div>
-</div>
-
   );
 }

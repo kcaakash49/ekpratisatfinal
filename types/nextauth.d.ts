@@ -7,6 +7,7 @@ declare module "next-auth" {
       id: number;  // Define the `id` as a number, matching your response from NextAuth
       fullname: string;
       role: string;
+      isAdmin:boolean;
     } & DefaultSession["user"];
   }
 }

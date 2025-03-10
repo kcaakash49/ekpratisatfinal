@@ -11,15 +11,22 @@ export const NEXT_AUTH = {
       },
 
       async authorize(credentials: any) {
-        console.log("credentials",credentials)
-        const response: any = await signinaction(credentials.mobile, credentials.password)
-        console.log("Response", response)
-        if (response?.user){
-          return response?.user
-        }else{
-          return null
+        console.log("Credentials:", credentials); // Debug input
+      
+        const response: any = await signinaction(credentials.mobile, credentials.password);
+        console.log("Response from signinaction:", response); // Debug API response
+      
+        if (response?.user) {
+          return {
+            id: response.user.id,
+            fullname: response.user.fullname,
+            role: response.user.role, // Make sure this exists
+          };
+        } else {
+          return null;
         }
-      },
+      }
+      ,
     }),
   ],
   pages: {

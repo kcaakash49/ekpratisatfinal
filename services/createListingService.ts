@@ -148,6 +148,8 @@ export async function createListingService(
       console.log(imageUrls);
 
       // Create the listing
+      formData.latitude = formData.latitude?.toString();
+      formData.longitude = formData.longitude?.toString();
       const listing = await prisma.listings.create({
         data: {
           ...formData,

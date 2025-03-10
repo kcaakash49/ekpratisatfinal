@@ -28,10 +28,14 @@ export const ListingSchema = z.object({
         })
     )
     .min(1, "At least one image"),
-  landArea: z.number().nullable().optional(),
+  landArea: z
+  .number()
+  .nullable()
+  .optional(),
   numberOfFloors: z.number().nullable().optional(),
   houseArea: z.number().nullable().optional(),
   area: z.number().nullable().optional(),
+  verified: z.boolean().default(false),
 });
 
 export const signUpSchema = z.object({
@@ -42,7 +46,8 @@ export const signUpSchema = z.object({
       message: "Full name must contain at least two words.",
     }),
   email: z.string().email(),
-  mobile: z.string().length(10, { message: "Number must be exact 10 digits"}),
+  mobile: z.string().length(10, { message: "Number must be exact 10 digits"})
+  .regex(/^\d{10}$/, { message: "Mobile number must contain only digits" }),
   password: z
     .string()
     .min(10, { message: "alteast 10 character long, at least one uppercase, one number and one special character" })
@@ -52,7 +57,12 @@ export const signUpSchema = z.object({
   role: z.enum(["USER", "PARTNER"]),
 });
 
+export const signinSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6, { message: "Password must be at least 6 characters long." }),
+});
+
 export type SignUpSchema = z.infer<typeof signUpSchema>;
 export type CreateListingSchema = z.infer<typeof ListingSchema>;
-
+export type SigninSchema = z.infer<typeof signinSchema>;
 

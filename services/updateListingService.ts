@@ -17,7 +17,11 @@ export async function updateListingService(listing: any, id: number){
         if (listing.numberOfFloors !== null) updateData.numberOfFloors = listing.numberOfFloors;
         if (listing.description !== undefined) updateData.description = listing.description;
         if (listing.type !== undefined) updateData.type = listing.type;
+        if (listing.verified !== undefined) updateData.verified = listing.verified;
+        updateData.latitude = listing.latitude.toString();
+        updateData.longitude = listing.longitude.toString();
 
+        
         console.log(updateData)
 
         await client.listings.update({

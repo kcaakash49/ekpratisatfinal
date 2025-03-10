@@ -1,4 +1,5 @@
 import client from "@/db";
+import bcrypt from 'bcryptjs';
 import { signUpSchema, SignUpSchema } from "@/zod/schema";
 import { Role } from "@prisma/client";
 
@@ -8,7 +9,6 @@ export async function signupservice(formData: SignUpSchema) {
         console.log(result.error?.format());
         if (!result.success) {
             const formattedErrors: any = result.error?.format();
-            console.log(formattedErrors)
             const simplifiedErrors = Object.keys(formattedErrors).reduce(
                 (acc: any, key) => {
                     // Skip the _errors property as it is not a form field
@@ -23,6 +23,8 @@ export async function signupservice(formData: SignUpSchema) {
                 error: simplifiedErrors,
             };
         }
+
+        // Check if the mobile or email already exists
         const existingUser = await client.user.findFirst({
             where: {
                 OR: [{ mobile: formData.mobile }, { email: formData.email }],
@@ -46,16 +48,19 @@ export async function signupservice(formData: SignUpSchema) {
             }
         }
 
-        // Create a new user if no conflicts exist
+        // Hash the password before saving it
+        const hashedPassword = await bcrypt.hash(formData.password, 10); // 10 salt rounds
+
+        // Create a new user with the hashed password
         await client.user.create({
-            data: formData,
+            data: {
+                ...formData, // Spread the formData
+                password: hashedPassword, // Set the hashed password
+            },
         });
 
         return { message: "Signup successful" };
     } catch (error) {
-        // console.error("Error during signup:", error);
-
-        // Return a generic error if something unexpected happens
         return {
             error: { error: "An unexpected error occurred. Please try again later." },
         };

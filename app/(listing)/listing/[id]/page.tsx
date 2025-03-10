@@ -1,21 +1,18 @@
 import { getListingAction } from "@/action/getListingAction";
 import { listingDetailAction } from "@/action/listingDetailAction";
-import Header from "@/components/Header";
 import SwiperComponent from "@/components/SwiperComponent";
-
-
 
 export async function generateStaticParams() {
   // Fetch the first 20 listings
-  const listings: any = await getListingAction(); // Fetch the first 20 listings (could be a DB query or API call)
+  const listings: any = await getListingAction();
 
   return listings.map((listing: any) => ({
-    id: listing.id.toString(),  // This matches the dynamic route `[id]`
+    id: listing.id.toString(), // Matches the dynamic route `[id]`
   }));
 }
 
 export const metadata = {
-  revalidate: 60 * 60 * 24, // This will regenerate the static page every 24 hours
+  revalidate: 60 * 60 * 24, // Regenerates the static page every 24 hours
 };
 
 export default async function Page({ params }: any) {
@@ -24,13 +21,14 @@ export default async function Page({ params }: any) {
   const property = response.listing;
 
   if (!property) {
-    return <div className="h-full flex items-center justify-center">
-      No listing found
-    </div>
+    return (
+      <div className="h-full flex items-center justify-center">
+        No listing found
+      </div>
+    );
   }
+
   return (
-    <div>
-      {/* <Header/> */}
     <div className="p-6">
       <div className="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Image Section */}
@@ -39,7 +37,17 @@ export default async function Page({ params }: any) {
         </div>
 
         {/* Property Information Section */}
-        <div className="p-6">
+        <div className="p-6 relative">
+          
+          {/* Verified Badge */}
+          {property.verified && (
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-green-500 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full shadow-md z-10">
+              Verified
+            </div>
+          )}
+
+
+
           {/* Title and Price */}
           <h1 className="text-3xl font-bold text-gray-800">{property.title}</h1>
           <p className="text-green-500 text-2xl font-semibold mt-2">
@@ -86,7 +94,6 @@ export default async function Page({ params }: any) {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
