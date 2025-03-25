@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import Image from 'next/image';
 
 // import dynamic from 'next/dynamic';
 
@@ -29,12 +30,17 @@ import { Pagination, Navigation } from 'swiper/modules';
 //       ))}
 //     </Swiper>
 //   );
-    
+
 // }
 
 
 
 export default function SwiperComponent({ images }: any) {
+  // Check if images is an array and has elements
+  if (!Array.isArray(images) || images.length === 0) {
+    return <div>No images available</div>; // Or you can return an empty div or placeholder
+  }
+
   return (
     <Swiper
       pagination={{ clickable: true }}
@@ -48,7 +54,17 @@ export default function SwiperComponent({ images }: any) {
             src={`${process.env.NEXT_PUBLIC_BASE_URL}${image.url}`}
             alt={`Property Image ${index + 1}`}
             className="w-full h-full object-cover"
+            
           />
+          {/* <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}${image.url}`}
+            alt={`Property Image ${index + 1}`}
+            fill
+            className="object-cover rounded-lg"
+            unoptimized
+          /> */}
+
+
         </SwiperSlide>
       ))}
     </Swiper>

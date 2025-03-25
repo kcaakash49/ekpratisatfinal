@@ -45,21 +45,22 @@ import SwiperComponent from "./SwiperComponent";
 //   );
 // }
 
-export default function ListingCard({ 
-  title, 
-  description, 
-  location, 
-  price, 
-  oldPrice, 
-  beds, 
-  baths, 
-  sqft, 
-  images, 
-  type, 
-  verified 
+export default function ListingCard({
+  title,
+  description,
+  location,
+  price,
+  oldPrice,
+  beds,
+  baths,
+  sqft,
+  images,
+  type,
+  verified,
+  category,
 }: any) {
 
-  
+
   return (
     <div className="relative w-full max-w-[430px] h-auto mb-20">
       {/* Background Card (Image) */}
@@ -81,23 +82,38 @@ export default function ListingCard({
 
         {/* Property Details */}
         <div className="flex items-center text-gray-600 text-sm mb-2">
-          {beds !== undefined && <span>🏡 {beds}</span>}
-          {baths !== undefined && <span>🚿 {baths}</span>}
-          {sqft !== undefined && <span>🏢 {sqft} sqft</span>}
+          <div>
+            {baths !== null && <span>🚿 {baths}</span>}
+            {sqft !== null && <span>🏢 {sqft} sqft</span>}
+            {beds !== null && <span>🏡 {beds}</span>}
+          </div >
+
         </div>
 
         {/* Verified Status */}
-        {verified && (
-          <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-            Verified
-          </div>
-        )}
+        {
+          verified && (
+            <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+              Verified
+            </div>
+          )
+        }
 
         {/* Title and Location */}
         <div className="text-lg font-bold">{title}</div>
-        <div className="text-gray-500">{location}</div>
-      </div>
-    </div>
+        <div className="text-gray-500 flex justify-between">
+          <div>
+            {location}
+
+          </div>
+          <div className="capitalize">
+            <div className="capitalize">
+              {category?.replaceAll("_", " ") || ""}
+            </div>
+          </div>
+        </div>
+      </div >
+    </div >
   );
 }
 

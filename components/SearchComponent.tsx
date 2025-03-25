@@ -60,7 +60,7 @@ export const SearchComponent = () => {
                     onClick={handleSearch}
                     disabled={search.trim() === "" || loading}
                 >
-                    🔍
+                    
                 </button>
             </div>
             {error && <p className="text-red-500 mt-2 text-center">{error}</p>}

@@ -13,7 +13,7 @@ export default async function () {
     if (!data || data.length === 0) {
       return (
         <div className="font-bold text-7xl flex items-center justify-center h-full">
-          
+          No data available
         </div>
       );
     }
@@ -40,6 +40,7 @@ export default async function () {
                   sqft={item.area}
                   images={item.images}
                   type = {item.type}
+                  category={item.category}
                 />
               </a>
             </div>

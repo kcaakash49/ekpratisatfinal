@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createListingAction } from '@/action/createListingAction';
 import ApartmentInfo from '@/components/createListingComponent/ApartmentInfo';
@@ -13,7 +13,10 @@ import Loading from '@/components/Loading';
 import { CreateListingSchema } from '@/zod/schema';
 import { useRouter } from 'next/navigation';
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { useSession } from 'next-auth/react'; 
+import { useSession } from 'next-auth/react';
+import amenityIcons from '@/components/amenityIcons'; // Import the amenityIcons mapping
+
+type Amenity = "Lawn" | "Drainage" | "Jacuzzi" | "Garage" | "Parking" | "Air Condition" | "Balcony" | "Deck" | "Fencing" | "Water Supply" | "Garden" | "CCTV" | "Gym" | "Microwave" | "Modular Kitchen" | "Security Staff";
 
 const CreateListingForm = () => {
     // State management
@@ -31,13 +34,14 @@ const CreateListingForm = () => {
         numberOfFloors: null,
         houseArea: null,
         area: null,
-        verified: false, // Add verified property to form data
+        amenities: [], // Initialize as an empty array
+        verified: false,
     });
     const [message, setMessage] = useState("");
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false);
     const [formStatus, setFormStatus] = useState<'idle' | 'message' | 'error'>('idle');
-    const { data: session } = useSession(); 
+    const { data: session } = useSession();
     const router = useRouter();
 
     const handleChange = (e: any) => {
@@ -77,12 +81,12 @@ const CreateListingForm = () => {
     };
 
     useEffect(() => {
-        if (formData.category === "house"){
+        if (formData.category === "house") {
             setFormData(prev => ({
                 ...prev,
                 area: null
             }));
-        } else if (formData.category === "land"){
+        } else if (formData.category === "land") {
             setFormData(prev => ({
                 ...prev,
                 bedrooms: null,
@@ -91,14 +95,14 @@ const CreateListingForm = () => {
                 numberOfFloors: null,
                 area: null,
             }));
-        } else if (formData.category === "apartment" || formData.category === "business" || formData.category === "flat"){
+        } else if (formData.category === "apartment" || formData.category === "business" || formData.category === "flat") {
             setFormData(prev => ({
                 ...prev,
                 landArea: null,
                 houseArea: null,
                 numberOfFloors: null
             }));
-        } else if (formData.category === "room"){
+        } else if (formData.category === "room") {
             setFormData(prev => ({
                 ...prev,
                 numberOfFloors: null,
@@ -106,7 +110,7 @@ const CreateListingForm = () => {
                 houseArea: null,
                 landArea: null
             }));
-        } else if (formData.category === "hostel_boys" || formData.category === "hostel_girls"){
+        } else if (formData.category === "hostel_boys" || formData.category === "hostel_girls") {
             setFormData(prev => ({
                 ...prev,
                 landArea: null,
@@ -119,12 +123,29 @@ const CreateListingForm = () => {
         }
     }, [formData.category]);
 
+    const handleAmenitiesChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
+
+        // Assert that `name` is of type `Amenity`
+        const amenityKey = name as Amenity;
+
+        setFormData(prev => ({
+            ...prev,
+            amenities: checked
+                ? [...prev.amenities, amenityKey] // Add the amenity
+                : prev.amenities.filter(amenity => amenity !== amenityKey) // Remove the amenity
+        }));
+    };
+
     return (
         <>
-            <div className='p-6'>
-                <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
-                    <GeneralInformation formData={formData} handleChange={handleChange} setFormData = {setFormData}/>
+            <div className='p-6 bg-white'>
+                <h3 className="text-4xl text-center text-gray-800 my-4">
+                    POST YOUR PROPERTY
+                </h3>
+                <form onSubmit={handleSubmit} className=" mx-auto mt-2 p-6 shadow-md rounded-lg space-y-6 bg-[#f6f1ed]">
                     <Category formData={formData} handleChange={handleChange} />
+                    <GeneralInformation formData={formData} handleChange={handleChange} setFormData={setFormData} />
                     {formData.category === 'house' && <HouseInfo formData={formData} handleChange={handleChange} />}
                     {(formData.category === 'apartment' || formData.category === 'flat' || formData.category === 'business') && <ApartmentInfo formData={formData} handleChange={handleChange} />}
                     {formData.category === 'land' && <LandInfo formData={formData} handleChange={handleChange} />}
@@ -146,11 +167,37 @@ const CreateListingForm = () => {
                         </div>
                     )}
 
+                    {/* Amenities Section with Icons */}
+                    <div className="space-y-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
+                        <h3 className="text-lg font-semibold col-span-full">AMENITIES</h3>
+                        {[
+                            "Parking", "Furnished", "Drainage", "Safety Tank", "Lawn", "Jacuzzi", "Garage", "Air Condition", "Balcony", "Deck", "Fencing", "Water Supply", "Garden", "CCTV", "Gym", "Microwave", "Modular Kitchen", "Swimming Pool", "TV Cable", "Washing Machine", "Wifi", "Solar Water", "Water Well", "Water Tank", "Cafeteria", "Electricity Backup", "Intercom", "Internet", "Kids Playground", "Lift", "Maintenance", "Security Staff"
+                        ].map((amenity) => {
+                            // Assert that `amenity` is of type `Amenity`
+                            const amenityKey = amenity as Amenity;
+                            return (
+                                <div key={amenityKey} className="flex items-center space-x-2">
+                                    <input
+                                        type="checkbox"
+                                        name={amenityKey}
+                                        checked={formData.amenities.includes(amenityKey)}
+                                        onChange={handleAmenitiesChange}
+                                        className="h-5 w-5"
+                                    />
+                                    <label htmlFor={amenityKey} className="flex items-center space-x-2">
+                                        <span className="amenity-icon text-xl text-gray-600">{amenityIcons[amenityKey]}</span>
+                                        <span>{amenityKey}</span>
+                                    </label>
+                                </div>
+                            );
+                        })}
+                    </div>
+
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${loading ? "bg-indigo-300" : "bg-indigo-600 hover:bg-indigo-700 text-white"
-                        }`}
+                        className={`w-full py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${loading ? "bg-indigo-300" : "bg-indigo-700 hover:bg-lime-800 text-white"
+                            }`}
                     >
                         {loading ? (
                             <Loading />

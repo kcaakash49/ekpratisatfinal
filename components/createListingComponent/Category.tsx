@@ -4,7 +4,7 @@ export default function ({ formData, handleChange }: any) {
     return (
         <>
         <div>
-            <label className="block text-sm font-medium text-gray-700">Type</label>
+            <label className="block text-sm font-medium text-gray-700">TYPE</label>
             <div className="flex gap-4 mt-2">
                 {['rent', 'sell'].map((type) => (
                     <label key={type} className="flex items-center space-x-2">
@@ -22,7 +22,7 @@ export default function ({ formData, handleChange }: any) {
             </div>
         </div>
         <div>
-                    <label className="block text-sm font-medium text-gray-700">Category</label>
+                    <label className="block text-sm font-medium text-gray-700">CATEGORY</label>
                     <div className="flex flex-wrap gap-4 mt-2">
                         {['house', 'flat', 'apartment', 'business', 'hostel_boys', 'hostel_girls', 'land','room'].map((category) => (
                             <label key={category} className="flex items-center space-x-2">

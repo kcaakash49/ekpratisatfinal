@@ -55,7 +55,7 @@ const AdminDashboard = () => {
   if (error) return <div className="p-6 text-red-600">Error: {error}</div>;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col mt-8">
       {/* Header with logo, search, and admin avatar dropdown */}
       <Header className="sticky top-0 z-10 bg-white" />
 

@@ -1,6 +1,6 @@
 import SwiperComponent from "./SwiperComponent";
 
-export default function ({ title, description, price, type, location, bathrooms, rooms, images, verified }: any) {
+export default function ({ title, description, price, sqft, type, location, bathrooms, rooms, images, verified }: any) {
   return (
     <div className="border border-gray-200 rounded-lg shadow-lg overflow-hidden bg-white transform hover:scale-105 transition-transform duration-300 relative">
       
@@ -44,6 +44,7 @@ export default function ({ title, description, price, type, location, bathrooms,
                   <span className="font-medium text-gray-800">{bathrooms}</span> Bathrooms
                 </p>
               </div>
+              
             </div>
           </div>
 

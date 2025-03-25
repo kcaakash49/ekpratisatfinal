@@ -104,10 +104,7 @@ import path from "path";
 import { revalidatePath } from "next/cache";
 import sharp from "sharp"; // Import sharp for image resizing and conversion
 
-export async function createListingService(
-  formData: any,
-  token: string
-) {
+export async function createListingService(formData: any, token: string) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
       userId: number;
@@ -126,17 +123,20 @@ export async function createListingService(
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const filename = Date.now() + "-" + file.name;
-        const outputFormat = 'webp';
-        const filePath = path.join("/var/www/images", filename.replace(path.extname(filename), `.${outputFormat}`)); // Image path changed to /var/www/images
+        const outputFormat = "webp";
+        const filePath = path.join(
+          "/var/www/images",
+          filename.replace(path.extname(filename), `.${outputFormat}`)
+        ); // Image path changed to /var/www/images
 
         // Buffer the file content
         const buffer = Buffer.from(await file.arrayBuffer());
 
         // Resize and convert the image to WebP (or another format) with Sharp
         const optimizedBuffer = await sharp(buffer)
-        .resize(1200) // Resize the image to 800px wide (adjust as necessary)
-        .toFormat(outputFormat, { quality: 100 }) // Convert to WebP or your desired format
-        .toBuffer(); // Get the resized buffer
+          .resize(1200) // Resize the image to 800px wide (adjust as necessary)
+          .toFormat(outputFormat, { quality: 100 }) // Convert to WebP or your desired format
+          .toBuffer(); // Get the resized buffer
 
         // Push to fileBuffers for later saving
         fileBuffers.push({ buffer: optimizedBuffer, path: filePath });
@@ -147,6 +147,11 @@ export async function createListingService(
 
       console.log(imageUrls);
 
+      // Ensure amenities is an array
+      const amenitiesArray = Array.isArray(formData.amenities)
+        ? formData.amenities
+        : [];
+
       // Create the listing
       formData.latitude = formData.latitude?.toString();
       formData.longitude = formData.longitude?.toString();
@@ -154,6 +159,9 @@ export async function createListingService(
         data: {
           ...formData,
           userId,
+          amenities: {
+            set: amenitiesArray, // Store amenities as an array
+          },
           images: {
             create: imageUrls.map((image) => ({
               url: image,
@@ -184,3 +192,4 @@ export async function createListingService(
     };
   }
 }
+

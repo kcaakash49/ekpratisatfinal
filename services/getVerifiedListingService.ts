@@ -13,6 +13,7 @@ export async function getVerifiedListingService(){
             orderBy:{
                 created:'desc',
             },
+            take: 6
         });
         return data;
     }catch(e){

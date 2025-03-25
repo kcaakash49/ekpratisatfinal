@@ -32,7 +32,6 @@ export default function () {
         const fetchListing = async () => {
             if (id) {
                 const response = await listingDetailAction(id);
-                console.log(response);
     
                 if (response.listing) {
                     setListing(response.listing);
@@ -63,7 +62,6 @@ export default function () {
     };
 
     const handleMarkerDragEnd = async(event: google.maps.MapMouseEvent) => {
-        console.log(marker)
         if (event.latLng) {
           const newLocation = {
             lat: event.latLng.lat(),

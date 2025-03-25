@@ -1,6 +1,7 @@
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 import SearchBarFinal from "./SearchBarFinal";
+import { SearchComponent } from "./SearchComponent";
 
 export default function HeroSection() {
   return (
@@ -17,7 +18,7 @@ export default function HeroSection() {
           muted
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/video/scene.mp4" type="video/mp4" />
+          <source src="/videos/bg.webm" type="video/webm" />
           {/* Add fallback content in case video can't be loaded */}
           Your browser does not support the video tag.
         </video>
@@ -34,18 +35,21 @@ export default function HeroSection() {
 
         {/* Centered Text & SearchComponent */}
         <div className="flex flex-1 flex-col items-center text-center px-4 sm:px-8 lg:px-28  mx-auto justify-center">
+        <div className="flex justify-center mt-4 mb-10">
+        <SearchComponent/>
+      </div>
           <h1 className="text-white font-bold text-3xl sm:text-4xl lg:text-6xl leading-tight">
             The Simplest <br /> Way to Find Property
           </h1>
-          <p className="text-gray-200 text-xs sm:text-sm md:text-base mt-4 max-w-2xl">
+          {/* <p className="text-gray-200 text-xs sm:text-sm md:text-base mt-4 max-w-2xl">
             A small river named Duden flows by their place and supplies it with
             the necessary regelialia. It is a paradisematic country.
-          </p>
+          </p> */}
 
           {/* Search Bar */}
-          <div className="pt-10 w-full mb-16 sm:mb-20">
+          {/* <div className="pt-10 w-full mb-16 sm:mb-20">
             <SearchBarFinal />
-          </div>
+          </div> */}
         </div>
 
         {/* Scroll Indicator */}

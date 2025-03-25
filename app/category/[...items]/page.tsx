@@ -29,6 +29,7 @@ export default async function ({ params, searchParams }: any) {
   return (
     <div>
       <Header />
+      <h1 className="flex justify-center capitalize font-bold text-2xl mt-10">{category.items}</h1>
       <ListingListComponent listing={listings} />
       <div className="flex justify-center space-x-4 mt-4">
         {/* Previous Button */}

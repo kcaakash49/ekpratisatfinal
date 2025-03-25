@@ -4,7 +4,7 @@ import { deleteListingAction } from "@/action/deleteListingAction";
 import SwiperComponent from "./SwiperComponent";
 import { useRouter } from "next/navigation";
 
-export default function MyListingCard({ title, location, price, type, created, images, id, onDelete }: any) {
+export default function MyListingCard({ title, location, price, type, created, images, id, onDelete, isFavourite }: any) {
     // Convert `created` into a relative time format
     const router = useRouter();
     const getTimeAgo = (date: number) => {
@@ -25,13 +25,14 @@ export default function MyListingCard({ title, location, price, type, created, i
 
     const handleDelete = async (e: React.MouseEvent) => {
         e.preventDefault();
-        onDelete(id)
-    }
+        onDelete(id);
+    };
 
     const handleEdit = async (e: React.MouseEvent) => {
         e.preventDefault();
-        router.push(`/edit-listing/${id}`)
-    }
+        router.push(`/edit-listing/${id}`);
+    };
+
     return (
         <div className="w-[320px] h-[380px] border rounded-2xl shadow-lg bg-white flex flex-col overflow-hidden transition hover:shadow-2xl">
             {/* Image Section */}
@@ -52,27 +53,28 @@ export default function MyListingCard({ title, location, price, type, created, i
                 <div className="flex justify-between items-center mt-4">
                     <p className="text-xs text-gray-400">{getTimeAgo(created)}</p>
 
-                    <div className="flex gap-3">
-                        {/* Edit Button with SVG */}
-                        <button className="flex items-center gap-1 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" onClick={handleEdit}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 3.487a2.073 2.073 0 1 1 2.934 2.935L7.125 19.093l-3.608.41a.5.5 0 0 1-.557-.558l.41-3.608L16.862 3.487z" />
-                            </svg>
-                            Edit
-                        </button>
+                    {/* Show actions only if not a favourite */}
+                    {!isFavourite && (
+                        <div className="flex gap-3">
+                            {/* Edit Button with SVG */}
+                            <button className="flex items-center gap-1 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" onClick={handleEdit}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 3.487a2.073 2.073 0 1 1 2.934 2.935L7.125 19.093l-3.608.41a.5.5 0 0 1-.557-.558l.41-3.608L16.862 3.487z" />
+                                </svg>
+                                Edit
+                            </button>
 
-                        {/* Delete Button with SVG */}
-                        <button className="flex items-center gap-1 px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition" onClick={handleDelete}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                            Delete
-                        </button>
-                    </div>
+                            {/* Delete Button with SVG */}
+                            <button className="flex items-center gap-1 px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition" onClick={handleDelete}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Delete
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
 }
-
-

@@ -11,3 +11,9 @@ signinresopnse.ts in type folder and used it in signinaction, services
 
 
 
+Welcome to Ekpratisat Real Estate – Smart Choices, Secure Investments!
+At Ekpratisat Real Estate, we make property transactions simple, transparent, and hassle-free. As a trusted brokerage firm in Nepal, we act as the reliable bridge between buyers and sellers, ensuring secure deals and professional service at every step. Whether you’re buying, selling, or renting, our expert team is here to guide you through a smooth and efficient process.
+
+With our commitment to fairness and value, we proudly stand by our motto:
+"एक प्रतिशत – उत्कृष्ट सेवा, उत्तम कारोबार।"
+(Ek Pratisat – Excellent Service, Smart Transactions.)
