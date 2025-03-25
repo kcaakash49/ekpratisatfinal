@@ -17,6 +17,6 @@ export async function createListingAction(formData: CreateListingSchema){
         }
         
     }
-    const token = generateUserToken(session.user.id)
+    const token = generateUserToken(session.user.id , session.user.role);
     return await createListingService(formData,token);
 }

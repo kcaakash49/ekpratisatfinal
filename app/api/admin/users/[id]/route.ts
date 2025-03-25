@@ -2,9 +2,11 @@ import client from "@/db";
 import { NextResponse } from "next/server";
 
 // GET: Fetch individual user details
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: any }) {
+  const param = await params;
+  console.log(param)
   try {
-    const userId = parseInt(params.id, 10);
+    const userId = parseInt(param.id, 10);
     if (isNaN(userId)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
@@ -33,9 +35,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
 }
 
 // PUT: Update user details
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: {  params: Promise<{ id: string }>}) {
+  const param = await params;
   try {
-    const userId = parseInt(params.id, 10);
+    const userId = parseInt(param.id, 10);
     if (isNaN(userId)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }

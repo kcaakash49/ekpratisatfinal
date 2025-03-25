@@ -1,13 +1,11 @@
-// app/api/admin/listings/[id]/route.ts
 import client from "@/db";
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 // GET: Fetch a single listing's details
-export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params:any }) {
   try {
-    const params = await Promise.resolve(context.params); // ✅ Await the params
-    const { id } = params;
-    const listingId = parseInt(id, 10);
+    const listingId = parseInt(params.id, 10);
 
     if (isNaN(listingId)) {
       return NextResponse.json({ error: "Invalid listing ID" }, { status: 400 });
@@ -23,24 +21,22 @@ export async function GET(request: Request, context: { params: { id: string } })
     }
 
     return NextResponse.json({ listing }, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching listing:", error);
     return NextResponse.json({ error: "Failed to fetch listing data" }, { status: 500 });
   }
 }
 
 // PUT: Update listing details
-export async function PUT(request: Request, context: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: any }) {
   try {
-    const params = await Promise.resolve(context.params); // ✅ Await the params
-    const { id } = params;
-    const listingId = parseInt(id, 10);
+    const listingId = parseInt(params.id, 10);
 
     if (isNaN(listingId)) {
       return NextResponse.json({ error: "Invalid listing ID" }, { status: 400 });
     }
 
-    let data = await request.json();
+    const data = await request.json();
 
     // Ensure price is an integer if it exists
     if (data.price) {
@@ -56,7 +52,6 @@ export async function PUT(request: Request, context: { params: { id: string } })
     });
 
     return NextResponse.json(updatedListing, { status: 200 });
-
   } catch (error) {
     console.error("Error updating listing:", error);
     return NextResponse.json({ error: "Failed to update listing" }, { status: 500 });
