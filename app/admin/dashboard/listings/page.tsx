@@ -34,7 +34,7 @@ const ListingsPage = () => {
         throw new Error("Failed to fetch listings");
       }
       const data = await response.json();
-      console.log("fetched listings:", data);
+      
       setListings(data.listings);
       setTotalListings(data.totalListings);
     } catch (error) {

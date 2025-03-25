@@ -18,11 +18,10 @@ export async function signinaction(mobile: string, password: string): Promise<Si
     role: Role.USER, // Default role as USER
   };
 
-  // Correct way to check if the user is an admin
   const isAdmin = user.role === Role.ADMIN;
 
   return {
-    message: response.message || "Login successful", // Default to a success message if not provided
-    user: { ...user, isAdmin }, // Append isAdmin inside user object
+    message: response.message || "Login successful", 
+    user: { ...user, isAdmin }, 
   };
 }
