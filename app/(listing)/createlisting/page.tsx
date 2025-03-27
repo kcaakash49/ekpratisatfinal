@@ -37,6 +37,7 @@ const CreateListingForm = () => {
         amenities: [], // Initialize as an empty array
         verified: false,
     });
+    const [client, setCLient ] = useState<boolean>(false);
     const [message, setMessage] = useState("");
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false);
@@ -51,6 +52,12 @@ const CreateListingForm = () => {
             [name]: name === 'bedrooms' || name === 'bathrooms' || name === 'price' || name === 'landArea' || name === 'numberOfFloors' || name === 'houseArea' || name === 'area' ? Number(value) : value,
         });
     };
+
+    useEffect(() => {
+        setCLient(true);
+    },[]);
+
+    if(!client) return null;
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
